@@ -1,0 +1,10 @@
+
+module Containers where
+
+record Functor : Sets where
+       fields
+         obj : Set → Set
+         morp : (A,B : Set) → (A → B) → (obj A → obj B)
+
+record COntainer : Sets where
+       

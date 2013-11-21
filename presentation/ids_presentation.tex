@@ -1,0 +1,273 @@
+\documentclass{beamer}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{sidecap}
+\usepackage{stmaryrd}
+\usepackage{pdfpages}
+\usepackage{wrapfig}
+\mode<presentation> {
+\usetheme{Dresden}
+\usecolortheme{lily}
+
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[Quotient Containers in Homotopy Type Theory]{Quotient Containers in Homotopy Type Theory} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{\textbf{Jonathan Sherry}} % Your name
+\institute[University of Nottingham] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+\small{Supervisor: Thorsten Altenkirch}\\
+University of Nottingham  % Your institution for the title page
+}
+\date{27\textsuperscript{th} November  2013 } % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+\begin{frame}
+\frametitle{Homotopy Type Theory}
+\begin{columns}[c]
+
+\column{.5\textwidth}
+\begin{itemize}
+\item \scriptsize{Developed by \textit{Univalent Foundations Program} at the Institute of Advanced Study, Princeton (Steve Awodey, Thierry Coquand and Vladimir Voevodsky et al.)}
+\item \scriptsize{Gives homotopical meaning to ideas in Martin-L\"of Type Theory}
+\item Same expressive power as Category theory and Type theory
+\end{itemize}
+
+\column{.4\textwidth}
+\begin{flushleft}
+\includegraphics[scale=0.23]{1.png}
+\end{flushleft}
+
+
+\end{columns}
+
+\end{frame}
+
+%-----------------------------------------------------
+
+\begin{frame}
+\frametitle{Key Ideas in HoTT}
+\begin{itemize}
+\item Terms of a type are points in a space
+\item A function $ f : A \to B $ is a continuous mapping from space $ A $ to space $ B $
+\item If $a = b$ for $a,b : A$ then a path $ p : a \leadsto b $ exists between a and b in A
+\item Two functions $ f,g : A \to B $ can be identified if they are homotopic
+\end{itemize}
+
+\end{frame}
+
+%-----------------------------------------------------
+
+\begin{frame}
+\frametitle{Key Ideas in HoTT}
+
+\begin{table}
+\begin{tabular}{l l l l l l}
+\toprule
+Types & Logic & Sets & Homotopy\\ \addlinespace[2pt]
+\midrule
+$A$ & proposition & set & space\\ \addlinespace[2pt]
+$a:A$ & proof & element & point \\ \addlinespace[2pt]
+$B(x)$ & predicate & family of sets & fibration \\ \addlinespace[2pt]
+$b(x) : B(x)$ & conditional proof & family of elements & section\\ \addlinespace[2pt]
+\textbf{0,1} & $\bot, \top$ & $\emptyset, \{ \emptyset \}$ & $\emptyset, *$\\ \addlinespace[2pt]
+$A + B$ & $A\vee B$ & disjoint union & coproduct\\ \addlinespace[2pt]
+\bottomrule
+\end{tabular}
+\end{table}
+\end{frame}
+
+%-----------------------------------------------------
+
+\begin{frame}
+\frametitle{Key Ideas in HoTT}
+\begin{table}
+\begin{tabular}{l l l l l l}
+\toprule
+Types & Logic & Sets & Homotopy\\ \addlinespace[2pt]
+\midrule
+$A\times B$ & $A\wedge B$ & set of pairs & product space\\ \addlinespace[2pt]
+$A\to B$ & $A\Rightarrow B$ & set of functions & function space\\ \addlinespace[2pt]
+$\Sigma _{(x:A)} B(x)$ &  $\exists_{x:A}B(x)$ & disjoint sum & total space\\ \addlinespace[2pt]
+$\Pi_{(x:A)}B(x)$ &  $\forall_{x:A}B(x)$ & product & space of sections\\ \addlinespace[2pt]
+$\mathsf{Id}_{A}$ & equality $=$ & $\{(x,x) | x\in A\}$ & path space $A^I$ \\ \addlinespace[2pt]
+\bottomrule
+\end{tabular}
+\end{table}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Containers}
+\begin{itemize}
+\item Type theoretic abstraction for collection types (lists, queues, trees etc)
+\item Allows these types to be represented in  a uniform manner
+\item Unary container is defined as a pair $ (S \rhd P)$ such that $ S : Set $ and $ P : S \to Set $
+\item Elements of the set S are \textit{shapes} of the container
+\item Elements of $P(s)$ are the \textit{positions} of s for $ s : S $
+\item Can be evaluated as an endofunctor
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+\frametitle{List Container}
+List Definition:
+\begin{verbatim}
+     data List (A : Set) : Set where
+          Nil : List A
+          Cons : A → List A → List A
+\end{verbatim}
+which would have the form $ (S \rhd P)$ such that $ S = 1 + A $ and $ P = 0 $
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Category of Containers}
+
+Container endofunctor:\\
+\begin{center}
+$\llbracket S \rhd P\rrbracket \in Set \to Set$\\
+$ \llbracket S \rhd P\rrbracket X = \Sigma s \in S. P s \to X $\\
+\end{center}
+\medskip
+Given containers $ (S \rhd P)$ and $ (T \rhd Q)$, morphism $ f \rhd r $ is given by:\\
+\medskip
+\begin{center}
+$f \in S \to T$\\
+$r \in \Pi _{s \in S} Q(f s) \to P s $
+\end{center}
+
+
+
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Aims and Objectives}
+\begin{enumerate}
+\item To research and understand Homotopy Type Theory
+\item To research and understand Quotient Containers and their applications
+\item To formalise the notion of Quotient Containers within the context of Homotopy Type Theory
+\item To potentially explore applications of Quotient Containers within the context of Homotopy Type Theory
+\item To potentially explore interesting or novel theorems surrounding Quotient Containers in Homotopy Type Theory
+\end{enumerate}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Project Plan}
+\fontsize{7.5pt}{7.2}\selectfont
+\begin{center}
+\begin{tabular}{l l}
+
+ \textbf{25 October - 20 November 2013} & Ongoing research into HoTT and Quotient Containers \\
+ \textbf{25 October - 20 November 2013} & Ongoing learning of Agda \\
+ \textbf{20 November - 26 November 2013} & Preparation for presentation \\
+ \textit{\textbf{27 November 2013}} & Presentation of progress \\
+ \textbf{28 November - 31 January 2014} & Continued relevant and more focussed research  \\
+ \textbf{01 February - 24 February 2014} & Writing of dissertation outline and sample chapter \\
+
+ \textbf{25 February - 27 February 2014} & Proof read/copy edit/typeset sample chapter \\
+ \textit{\textbf{28 February 2014}} & Submission of dissertation outline and sample chapter \\
+ \textbf{31 March 2014} & Complete first draft of dissertation \\
+ \textbf{01 April - 31 April 2014} & Redraft and rewrite dissertation \\
+ \textbf{31 April 2014} & \underline{Complete dissertation} \\
+ \textbf{01 May - 11 May 2014} & Final checks and typesetting of dissertation \\
+ \textbf{01 May - 13 May 2014} & Preparation for demonstration of project \\
+ \textit{\textbf{12 May 2014}} & Submission of complete dissertation \\
+ \textit{\textbf{14 May 2014}} & Demonstration of project \\
+
+\end{tabular}
+\end{center}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Progress}
+\begin{block}{Research}
+\begin{itemize}
+\item Homotopy Type Theory
+\begin{itemize}
+\item HoTT Book
+\item http://homotopytypetheory.org
+\end{itemize}
+\item Containers
+\begin{itemize}
+\item Hakon Robbestad Gylterud - Symmetric Containers
+\item Abbott, Altenkirch, Ghani - Constructing Strictly Positive Types
+\item Altenkirch, Levy, Staton - Higher Order Containers
+\end{itemize}
+\item Agda
+\begin{itemize}
+\item Agda wiki
+\item Francesco Mazzoli - Agda by Example: $\lambda$-calculus
+\item Thorsten Altenkirch - Type Theory in Rosario
+\end{itemize}
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\frametitle{Progress}
+
+\begin{block}{Formalization in Agda}
+\begin{itemize}
+\item Containers
+\item Container morphisms
+\item Evaluating containers as functors
+\item Container morphisms as natural transformations
+\end{itemize}
+\end{block}
+\end{frame}
+%------------------------------------------------
+
+\begin{frame}
+\frametitle{Progress}
+\begin{block}{Written Dissertation}
+\begin{itemize}
+\item Abstract
+\item Introduction
+\item Background Information
+\end{itemize}
+\end{block}
+
+\end{frame}
+
+\begin{frame}
+\Huge{\centerline{\textit{Questions?}}}
+\end{frame}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
