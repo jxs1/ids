@@ -16,8 +16,12 @@ record Functor : Sets where
 〚 _ 〛c : Container → Functor
 
 record NatTrans (F , G : Functor) : Sets
-               fields
+               field
                  fam : (A : Set) → obj F A → obj G A 
                  nat : 
                    f : A → B
 
+record _→c_ {A , B : Container } : Set where
+               field
+                 shape : Shape A → Shape B
+                 position : ∀ {s} 
