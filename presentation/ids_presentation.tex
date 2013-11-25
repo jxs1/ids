@@ -6,19 +6,15 @@
 \usepackage{stmaryrd}
 \usepackage{pdfpages}
 \usepackage{wrapfig}
+
 \mode<presentation> {
 \usetheme{Dresden}
 \usecolortheme{lily}
-
-
-%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
-%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
-
-\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+\setbeamertemplate{navigation symbols}{} 
 }
 
-\usepackage{graphicx} % Allows including images
-\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{graphicx} 
+\usepackage{booktabs} 
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
@@ -37,7 +33,7 @@ University of Nottingham  % Your institution for the title page
 \begin{document}
 
 \begin{frame}
-\titlepage % Print the title page as the first slide
+\titlepage
 \end{frame}
 
 
@@ -53,7 +49,6 @@ University of Nottingham  % Your institution for the title page
 \begin{itemize}
 \item \scriptsize{Developed by \textit{Univalent Foundations Program} at the Institute of Advanced Study, Princeton (Steve Awodey, Thierry Coquand and Vladimir Voevodsky et al.)}
 \item \scriptsize{Gives homotopical meaning to ideas in Martin-L\"of Type Theory}
-\item Same expressive power as Category theory and Type theory
 \end{itemize}
 
 \column{.4\textwidth}
@@ -70,54 +65,37 @@ University of Nottingham  % Your institution for the title page
 
 \begin{frame}
 \frametitle{Key Ideas in HoTT}
+\begin{columns}[c]
+
+\column{.5\textwidth}
 \begin{itemize}
 \item Terms of a type are points in a space
 \item A function $ f : A \to B $ is a continuous mapping from space $ A $ to space $ B $
 \item If $a = b$ for $a,b : A$ then a path $ p : a \leadsto b $ exists between a and b in A
-\item Two functions $ f,g : A \to B $ can be identified if they are homotopic
+\item Two functions $ f,g : A \to B $ can be identified if they are homotopic (i.e. one can be continuously deformed onto another)
 \end{itemize}
 
+\column{.5\textwidth}
+\includegraphics[scale=0.3]{./2.png}\\
+\small{\textit{Homotopy between two curves: the curves $\gamma_0$ and $ \gamma_1$ are homotopic by the homotopy $H$}}
+
+
+\end{columns}
 \end{frame}
 
 %-----------------------------------------------------
 
 \begin{frame}
-\frametitle{Key Ideas in HoTT}
+\frametitle{HoTT vs MLTT}
 
-\begin{table}
-\begin{tabular}{l l l l l l}
-\toprule
-Types & Logic & Sets & Homotopy\\ \addlinespace[2pt]
-\midrule
-$A$ & proposition & set & space\\ \addlinespace[2pt]
-$a:A$ & proof & element & point \\ \addlinespace[2pt]
-$B(x)$ & predicate & family of sets & fibration \\ \addlinespace[2pt]
-$b(x) : B(x)$ & conditional proof & family of elements & section\\ \addlinespace[2pt]
-\textbf{0,1} & $\bot, \top$ & $\emptyset, \{ \emptyset \}$ & $\emptyset, *$\\ \addlinespace[2pt]
-$A + B$ & $A\vee B$ & disjoint union & coproduct\\ \addlinespace[2pt]
-\bottomrule
-\end{tabular}
-\end{table}
+\begin{itemize}
+\item Different notion of equality in homotopy type theory
+\item Allows representation of multisets (bags)
+\item Cannot be represented in conventional type theory 
+\end{itemize}
 \end{frame}
 
-%-----------------------------------------------------
 
-\begin{frame}
-\frametitle{Key Ideas in HoTT}
-\begin{table}
-\begin{tabular}{l l l l l l}
-\toprule
-Types & Logic & Sets & Homotopy\\ \addlinespace[2pt]
-\midrule
-$A\times B$ & $A\wedge B$ & set of pairs & product space\\ \addlinespace[2pt]
-$A\to B$ & $A\Rightarrow B$ & set of functions & function space\\ \addlinespace[2pt]
-$\Sigma _{(x:A)} B(x)$ &  $\exists_{x:A}B(x)$ & disjoint sum & total space\\ \addlinespace[2pt]
-$\Pi_{(x:A)}B(x)$ &  $\forall_{x:A}B(x)$ & product & space of sections\\ \addlinespace[2pt]
-$\mathsf{Id}_{A}$ & equality $=$ & $\{(x,x) | x\in A\}$ & path space $A^I$ \\ \addlinespace[2pt]
-\bottomrule
-\end{tabular}
-\end{table}
-\end{frame}
 
 %------------------------------------------------
 
@@ -135,15 +113,15 @@ $\mathsf{Id}_{A}$ & equality $=$ & $\{(x,x) | x\in A\}$ & path space $A^I$ \\ \a
 
 %------------------------------------------------
 
-\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+\begin{frame}[fragile]
 \frametitle{List Container}
 List Definition:
 \begin{verbatim}
      data List (A : Set) : Set where
           Nil : List A
-          Cons : A → List A → List A
+          Cons : A -> List A -> List A
 \end{verbatim}
-which would have the form $ (S \rhd P)$ such that $ S = 1 + A $ and $ P = 0 $
+would have the form $ (S \rhd P)$ such that $ S = \mathbb{N} $ and $ P = Fin $
 \end{frame}
 
 %------------------------------------------------
@@ -156,14 +134,14 @@ Container endofunctor:\\
 $\llbracket S \rhd P\rrbracket \in Set \to Set$\\
 $ \llbracket S \rhd P\rrbracket X = \Sigma s \in S. P s \to X $\\
 \end{center}
-\medskip
+\smallskip
 Given containers $ (S \rhd P)$ and $ (T \rhd Q)$, morphism $ f \rhd r $ is given by:\\
 \medskip
 \begin{center}
 $f \in S \to T$\\
-$r \in \Pi _{s \in S} Q(f s) \to P s $
+$r \in \Pi _{s \in S} Q(f s) \to P s $\\
 \end{center}
-
+Gives rise to natural transformations.
 
 
 \end{frame}
@@ -265,7 +243,13 @@ $r \in \Pi _{s \in S} Q(f s) \to P s $
 \end{frame}
 
 \begin{frame}
-\Huge{\centerline{\textit{Questions?}}}
+\begin{center}
+Progress can be tracked at:\\
+\texttt{https://github.com/jxs1/ids}\\
+\bigskip
+\Huge{\textit{Questions?}}
+\end{center}
+
 \end{frame}
 
 %----------------------------------------------------------------------------------------

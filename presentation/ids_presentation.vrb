@@ -3,6 +3,6 @@ List Definition:
 \begin{verbatim}
      data List (A : Set) : Set where
           Nil : List A
-          Cons : A → List A → List A
+          Cons : A -> List A -> List A
 \end{verbatim}
-which would have the form $ (S \rhd P)$ such that $ S = 1 + A $ and $ P = 0 $
+would have the form $ (S \rhd P)$ such that $ S = \mathbb{N} $ and $ P = Fin $
