@@ -20,16 +20,14 @@
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
 
-\title[Quotient Containers in Homotopy Type Theory]{Quotient Containers in Homotopy Type Theory} % The short title appears at the bottom of every slide, the full title is only on the title page
-
-\author{\textbf{Jonathan Sherry}} % Your name
-\institute[University of Nottingham] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+\title[Quotient Containers in Homotopy Type Theory]{Quotient Containers in Homotopy Type Theory} 
+\author{\textbf{Jonathan Sherry}}
+\institute[University of Nottingham]
 {
 \small{Supervisor: Thorsten Altenkirch}\\
-University of Nottingham  % Your institution for the title page
+University of Nottingham 
 }
-\date{27\textsuperscript{th} November  2013 } % Date, can be changed to a custom date
-
+\date{27\textsuperscript{th} November  2013 } 
 \begin{document}
 
 \begin{frame}
@@ -42,13 +40,13 @@ University of Nottingham  % Your institution for the title page
 %----------------------------------------------------------------------------------------
 
 \begin{frame}
-\frametitle{Homotopy Type Theory (HoTT)}
+\frametitle{Homotopy Type Theory}
 \begin{columns}[c]
 
 \column{.5\textwidth}
 \begin{itemize}
-\item \scriptsize{Result of the \textit{Univalent Foundations Program} at the Institute of Advanced Study, Princeton (Steve Awodey, Thierry Coquand and Vladimir Voevodsky et al.)}
-\item \scriptsize{Gives homotopical meaning to ideas in Martin-L\"of Type Theory (MLTT)}
+\item \scriptsize{Developed by \textit{Univalent Foundations Program} at the Institute of Advanced Study, Princeton (Steve Awodey, Thierry Coquand and Vladimir Voevodsky et al.)}
+\item \scriptsize{Gives homotopical meaning to ideas in Martin-L\"of Type Theory}
 \end{itemize}
 
 \column{.4\textwidth}
@@ -86,14 +84,12 @@ University of Nottingham  % Your institution for the title page
 %-----------------------------------------------------
 
 \begin{frame}
-\frametitle{Homotopy Type Theory vs. Martin L\" of Type Theory}
+\frametitle{HoTT vs MLTT}
 
 \begin{itemize}
-\item Martin L\" of Type Theory (Intuitionistic Type Theory)
-\item Foundational system for constructive mathematics
-\item May recognise from G52IFR (Coq)
-\item Cannot represent multiset containers in conventional type theory 
-\item Different equality in homotopy type theory
+\item Different notion of equality in homotopy type theory
+\item Allows representation of multisets (bags)
+\item Cannot be represented in conventional type theory 
 \end{itemize}
 \end{frame}
 
