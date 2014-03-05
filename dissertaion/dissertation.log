@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.11)  12 FEB 2014 19:05
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.11)  5 MAR 2014 19:51
 entering extended mode
  %&-line parsing enabled.
 **dissertation.tex
@@ -472,38 +472,44 @@ LaTeX Info: Redefining \em on input line 420.
 LaTeX Info: The control sequence `\[' is already robust on input line 471.
 LaTeX Info: The control sequence `\]' is already robust on input line 472.
 )
+(/usr/share/texmf-texlive/tex/latex/stmaryrd/stmaryrd.sty
+Package: stmaryrd 1994/03/03 St Mary's Road symbol package
+\symstmry=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `stmry' in version `bold'
+(Font)                  U/stmry/m/n --> U/stmry/b/n on input line 89.
+)
 
 Package hyperref Warning: Option `bookmarks' has already been used,
-(hyperref)                setting the option has no effect on input line 46.
+(hyperref)                setting the option has no effect on input line 47.
 
-Package hyperref Info: Option `unicode' set `false' on input line 46.
+Package hyperref Info: Option `unicode' set `false' on input line 47.
 (/usr/share/texmf-texlive/tex/latex/hyperref/puenc.def
 File: puenc.def 2009/10/09 v6.79a Hyperref: PDF Unicode definition (HO)
 )
-Package hyperref Info: Option `pdftoolbar' set `true' on input line 46.
-Package hyperref Info: Option `pdfmenubar' set `true' on input line 46.
-Package hyperref Info: Option `pdffitwindow' set `false' on input line 46.
-Package hyperref Info: Option `pdfnewwindow' set `true' on input line 46.
-Package hyperref Info: Option `colorlinks' set `true' on input line 46.
+Package hyperref Info: Option `pdftoolbar' set `true' on input line 47.
+Package hyperref Info: Option `pdfmenubar' set `true' on input line 47.
+Package hyperref Info: Option `pdffitwindow' set `false' on input line 47.
+Package hyperref Info: Option `pdfnewwindow' set `true' on input line 47.
+Package hyperref Info: Option `colorlinks' set `true' on input line 47.
  (./dissertation.aux)
 \openout1 = `dissertation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 56.
-LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 57.
+LaTeX Font Info:    ... okay on input line 57.
 
 *geometry auto-detecting driver*
 *geometry detected driver: pdftex*
@@ -554,7 +560,7 @@ File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 130.
 )
-Package hyperref Info: Link coloring ON on input line 56.
+Package hyperref Info: Link coloring ON on input line 57.
 
 (/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
 Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
@@ -564,8 +570,8 @@ Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 )
 \c@section@level=\count132
 )
-LaTeX Info: Redefining \ref on input line 56.
-LaTeX Info: Redefining \pageref on input line 56.
+LaTeX Info: Redefining \ref on input line 57.
+LaTeX Info: Redefining \pageref on input line 57.
  (./dissertation.out) (./dissertation.out)
 \@outlinefile=\write4
 \openout4 = `dissertation.out'.
@@ -587,19 +593,22 @@ LaTeX Info: Redefining \pageref on input line 56.
 \c@lstlisting=\count138
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
- <1.png, id=163, 642.4pt x 461.725pt>
+ <1.png, id=191, 642.4pt x 461.725pt>
 File: 1.png Graphic file (type png)
  <use 1.png>
-LaTeX Font Info:    Try loading font information for U+msa on input line 82.
+LaTeX Font Info:    Try loading font information for U+msa on input line 83.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 82.
+LaTeX Font Info:    Try loading font information for U+msb on input line 83.
 
 (/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
-) [1
+)
+LaTeX Font Info:    Try loading font information for U+stmry on input line 83.
+
+(/usr/share/texmf-texlive/tex/latex/stmaryrd/Ustmry.fd) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./1.png (PNG copy)>] (./di
 ssertation.toc
@@ -613,7 +622,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.35 ...iners in Homotopy Type Theory}{18}{part.3}
+l.36 ...3}Category of Containers}{16}{section.6.3}
                                                    [1])
 \tf@toc=\write5
 \openout5 = `dissertation.toc'.
@@ -622,7 +631,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.90 \part
+l.91 \part
           {Introduction} [1] [2
 
 ]
@@ -644,106 +653,113 @@ Chapter 4.
 [7
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 136.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 137.
 
  (/usr/share/texmf-texlive/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 136.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 137.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 152.
+(hyperref)                removing `math shift' on input line 153.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\Pi' on input line 152.
+(hyperref)                removing `\Pi' on input line 153.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 152.
+(hyperref)                removing `math shift' on input line 153.
 
 [8]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 166.
+(hyperref)                removing `math shift' on input line 167.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\Sigma' on input line 166.
+(hyperref)                removing `\Sigma' on input line 167.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 166.
+(hyperref)                removing `math shift' on input line 167.
 
 [9] [10]
 Chapter 5.
 [11
 
-] [12] <./2.png, id=294, 520.94624pt x 270.00874pt>
+] [12] <./2.png, id=329, 520.94624pt x 270.00874pt>
 File: ./2.png Graphic file (type png)
  <use ./2.png> [13 <./2.png (PNG copy)>] [14]
 Chapter 6.
 [15
 
 ]
+Underfull \hbox (badness 10000) in paragraph at lines 341--345
+
+ []
+
+<cm.png, id=347, 95.75775pt x 95.75775pt>
+File: cm.png Graphic file (type png)
+ <use cm.png> [16 <./cm.png (PNG copy)>]
 Chapter 7.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 298.
+(hyperref)                removing `math shift' on input line 363.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\delta' on input line 298.
+(hyperref)                removing `\delta' on input line 363.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 298.
+(hyperref)                removing `math shift' on input line 363.
 
-[16
+[17
 
 ]
 Chapter 8.
-[17
+[18
 
-] [18
+] [19
 
 ]
 Chapter 9.
-[19
+[20
 
-] [20
+] [21
 
 ]
 Chapter 10.
-[21
-
-]
-Chapter 11.
 [22
 
 ]
-Chapter 12.
+Chapter 11.
 [23
 
-] [24
+]
+Chapter 12.
+[24
+
+] [25
 
 
 ]
 Chapter 13.
-[25
+[26
 
 
 ] (./dissertation.aux) ) 
 Here is how much of TeX's memory you used:
- 12031 strings out of 495061
- 163174 string characters out of 1182620
- 280225 words of memory out of 3000000
- 14933 multiletter control sequences out of 15000+50000
- 23797 words of font info for 93 fonts, out of 3000000 for 9000
+ 12211 strings out of 495061
+ 165338 string characters out of 1182620
+ 280457 words of memory out of 3000000
+ 15090 multiletter control sequences out of 15000+50000
+ 26041 words of font info for 104 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 38i,12n,48p,756b,364s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 38i,12n,48p,756b,370s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-texlive/fonts/type1/public/amsfonts/c
 m/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx8.pfb
 ></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/sh
@@ -763,10 +779,11 @@ xmf-texlive/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texmf-texlive/
 fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-texlive/fonts/type1
 /public/amsfonts/cm/cmtt8.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
 onts/symbols/msam10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/s
-ymbols/msbm10.pfb>
-Output written on dissertation.pdf (27 pages, 534166 bytes).
+ymbols/msbm10.pfb></usr/share/texmf-texlive/fonts/type1/hoekwater/stmaryrd/stma
+ry10.pfb>
+Output written on dissertation.pdf (28 pages, 557601 bytes).
 PDF statistics:
- 447 PDF objects out of 1000 (max. 8388607)
- 82 named destinations out of 1000 (max. 500000)
- 331 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 495 PDF objects out of 1000 (max. 8388607)
+ 92 named destinations out of 1000 (max. 500000)
+ 392 words of extra memory for PDF output out of 10000 (max. 10000000)
 

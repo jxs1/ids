@@ -17,6 +17,7 @@
 \usepackage{amsfonts}
 \usepackage{fixltx2e}
 \usepackage{hyperref}
+\usepackage{stmaryrd}
 
 \fancypagestyle{plain} {
 	\fancyhf{}
@@ -260,10 +261,23 @@ Functions also behave functorially on paths, that is, all functions are continuo
 
 
 \subsection{Dependent types}
-
+Dependent types are represented by a fibration - a mapping from a base space to a total space.
 
 \subsection{Higher Inductive Types}
 \subsubsection{Multisets as a HIT}
+\begin{center}
+$S_M : Type_1$\\
+$e : \mathbb{N} \to S_M$\\
+$\epsilon : Fin(m) = Fin(n) \to e(m) = e(n) $\\
+\end{center}
+And family:
+\begin{center}
+$P_M : S_M \to Set$\\
+$P_M(e(n)) = Fin(n)$\\
+$P_M(\epsilon(\alpha)) = transport(Fin, \alpha)$\\
+\end{center}
+
+
 
 
 \section{Summary}
@@ -293,12 +307,88 @@ $ \prod_{(x:A)}^{} B(x) $ & $\forall x:A, B(x) $ & product & space of sections\\
 
 
 \chapter{Containers}
+\section{Introduction}
+
+
+\section{Definition}
+A unary container is defined as a pair $ (S \rhd P) $ where:
+\begin{enumerate}
+\item $S : Set$ and elements of $S$ are the \textit{shapes} of the container.
+\item $P : Set \to Set$ and for $s : S$, elements of $P(s)$ are the \textit{positions} of \textit{s}.
+\end{enumerate}
+
+\subsection{List Container}
+As an example, we define a list container, $Con_{List}$ for conventional lists over a type \textit{A}:
+\begin{center}
+$ L(A) \simeq 1 + A \times L(A) $
+\end{center}
+or in Agda:
+\begin{verbatim}
+                 data List (A : Set) : Set where
+                      Nil : List A
+                      Cons : A -> List A -> List A
+\end{verbatim}
+ $Con_{List} = (S \rhd P) $ such that \textit{S}, the set of shapes, is $\mathbb{N}$, the set of natural numbers and \textit{P}, the family of positions is $Fin(-)$. The functor $\llbracket Con_{List} \rrbracket$ maps a set to the set of finite sequences in A.
+
+
+\section{Category of Containers}
+The category of containers is composed of containers as objects and container morphisms.
+A container can be interpreted as an endofunctor (a categorical mapping from a category to itself):
+\begin{center}
+$\llbracket S \rhd P\rrbracket \in Set \to Set$\\
+$ \llbracket S \rhd P\rrbracket X = \Sigma s \in S. P s \to X $
+\end{center}
+and given containers $ (S \rhd P)$ and $ (T \rhd Q)$ morphism $ f \rhd r $ is given by:
+\linebreak
+\linebreak
+$Mor_{Con}(S \rhd P),(T \rhd Q) = $
+\begin{center}
+$ \sum_{f : S \to T} r : \prod_{x \in S} Q(f(x)) \to P(x)$
+\end{center}
+Pictorally, this is represented as:
+\begin{center}
+\includegraphics[scale=1]{cm.png}
+\end{center}
+These container morphisms give rise to natural transformations, morphisms of functors. Given containers $ (S \rhd P)$ and $ (T \rhd Q)$, and a container morphism $ (f , r) : (S \rhd P) \to (S \rhd P)$ we can define a natural transformation:
+\begin{center}
+$ \llbracket f,r\rrbracket : \llbracket S \rhd P\rrbracket \Rightarrow \llbracket T \rhd Q\rrbracket$ \\
+$  \llbracket f,r\rrbracket (s,p) = (f(s),p \circ r_s) $
+\end{center}
+
+
+\section{Quotient Containers}
+
 
 
 \chapter{$\delta$ for Data}
 
+\section{Differentiating Data Structures}
+
+\section{Differentiating Containers}
+\begin{center}
+$Cont^{\circ}(S \rhd P, T \rhd Q)$\\
+$r: \Pi s : S, Q(f s) \simeq  P s$\\
+$\Sigma S \rightarrow T$
+\end{center}
+Derivative:
+\begin{center}
+$Cont^{\circ}(H, \delta F) \simeq  Cont^{\circ}(H \times I, F)$\\
+$\delta (S \rhd P) = (s,p) \Sigma s : S . P(s) \rhd \Sigma p':P(s),p \neq p'$
+\end{center}
+
+
+Linear Container Derivative:
+\begin{center}
+$L = (S \rhd P)$ such that $S = \mathbb{N}, P = Fin(-)$\\
+$\delta(L) = \Sigma n : \mathbb{N}, p: Fin(n) \rhd \Sigma p' : Fin(n), p \neq p'$\\
+$\simeq $\\
+$(m,n): \mathbb{N} \times \mathbb{N} \rhd Fin(n) + Fin(n)$\\
+$= (L \times L)$\\
+\end{center} 
+
+
 \chapter{Agda}
-based on mltt
+Agda is a programming language come proof assistant based on Martin-L\"of Type Theory (See \textbf{Chapter 4}).
 
 
 
@@ -309,6 +399,7 @@ based on mltt
 \part{Quotient Containers in Homotopy Type Theory}
 
 \chapter{Implementation}
+
 
 \part{Conclusions}
 

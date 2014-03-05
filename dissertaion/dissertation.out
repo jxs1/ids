@@ -27,7 +27,14 @@
 \BOOKMARK [2][-]{subsection.5.2.5}{Higher Inductive Types}{section.5.2}
 \BOOKMARK [1][-]{section.5.3}{Summary}{chapter.5}
 \BOOKMARK [0][-]{chapter.6}{Containers}{part.2}
+\BOOKMARK [1][-]{section.6.1}{Introduction}{chapter.6}
+\BOOKMARK [1][-]{section.6.2}{Definition}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.2.1}{List Container}{section.6.2}
+\BOOKMARK [1][-]{section.6.3}{Category of Containers}{chapter.6}
+\BOOKMARK [1][-]{section.6.4}{Quotient Containers}{chapter.6}
 \BOOKMARK [0][-]{chapter.7}{ for Data}{part.2}
+\BOOKMARK [1][-]{section.7.1}{Differentiating Data Structures}{chapter.7}
+\BOOKMARK [1][-]{section.7.2}{Differentiating Containers}{chapter.7}
 \BOOKMARK [0][-]{chapter.8}{Agda}{part.2}
 \BOOKMARK [-1][-]{part.3}{III Quotient Containers in Homotopy Type Theory}{}
 \BOOKMARK [0][-]{chapter.9}{Implementation}{part.3}
