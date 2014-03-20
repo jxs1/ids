@@ -1,4 +1,3 @@
-
 open import Data.AVL.Sets
 open import Groupoid
 
@@ -29,3 +28,4 @@ record QCont : Sets where
              field
                S : Groupoid
                P : S → Set
+
