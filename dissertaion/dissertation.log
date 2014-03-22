@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.10.11)  19 MAR 2014 22:32
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2013.3.1)  22 MAR 2014 22:02
 entering extended mode
  %&-line parsing enabled.
 **dissertation.tex
@@ -47,8 +47,7 @@ Package ifvtex Info: VTeX not detected.
 \Gm@odd@mp=\dimen105
 \Gm@even@mp=\dimen106
 \Gm@dimlist=\toks15
-
-(/usr/share/texmf-texlive/tex/xelatex/xetexconfig/geometry.cfg))
+)
 (/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks16
@@ -593,7 +592,7 @@ LaTeX Info: Redefining \pageref on input line 57.
 \c@lstlisting=\count138
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
- <1.png, id=191, 642.4pt x 461.725pt>
+ <1.png, id=199, 642.4pt x 461.725pt>
 File: 1.png Graphic file (type png)
  <use 1.png>
 LaTeX Font Info:    Try loading font information for U+msa on input line 83.
@@ -653,110 +652,110 @@ Chapter 4.
 [7
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 135.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 137.
 
  (/usr/share/texmf-texlive/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 135.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 137.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 151.
+(hyperref)                removing `math shift' on input line 153.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\Pi' on input line 151.
+(hyperref)                removing `\Pi' on input line 153.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 151.
+(hyperref)                removing `math shift' on input line 153.
 
 [8]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 165.
+(hyperref)                removing `math shift' on input line 167.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\Sigma' on input line 165.
+(hyperref)                removing `\Sigma' on input line 167.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 165.
+(hyperref)                removing `math shift' on input line 167.
 
 [9] [10]
 Chapter 5.
 [11
 
-] [12] <./2.png, id=329, 520.94624pt x 270.00874pt>
+] [12] <./2.png, id=339, 520.94624pt x 270.00874pt>
 File: ./2.png Graphic file (type png)
  <use ./2.png> [13 <./2.png (PNG copy)>] [14]
 Chapter 6.
 [15
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 339--343
+Underfull \hbox (badness 10000) in paragraph at lines 341--345
 
  []
 
-<cm.png, id=347, 95.75775pt x 95.75775pt>
+<cm.png, id=357, 95.75775pt x 95.75775pt>
 File: cm.png Graphic file (type png)
- <use cm.png> [16 <./cm.png (PNG copy)>]
+ <use cm.png> [16 <./cm.png (PNG copy)>] [17]
 Chapter 7.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 363.
+(hyperref)                removing `math shift' on input line 379.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\delta' on input line 363.
+(hyperref)                removing `\delta' on input line 379.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 363.
+(hyperref)                removing `math shift' on input line 379.
 
-[17
+[18
 
 ]
 Chapter 8.
-[18
+[19
 
-] [19
+] [20
 
 ]
 Chapter 9.
-[20
+[21
 
-] [21
+] [22
 
 ]
 Chapter 10.
-[22
-
-]
-Chapter 11.
 [23
 
 ]
-Chapter 12.
+Chapter 11.
 [24
 
-] [25
+]
+Chapter 12.
+[25
+
+] [26
 
 
 ]
 Chapter 13.
-[26
+[27
 
 
 ] (./dissertation.aux) ) 
 Here is how much of TeX's memory you used:
- 12211 strings out of 495061
- 165338 string characters out of 1182620
- 280457 words of memory out of 3000000
- 15090 multiletter control sequences out of 15000+50000
+ 12213 strings out of 495061
+ 165242 string characters out of 1182622
+ 280447 words of memory out of 3000000
+ 15092 multiletter control sequences out of 15000+50000
  26041 words of font info for 104 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  38i,12n,48p,756b,370s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -781,9 +780,9 @@ fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-texlive/fonts/type1
 onts/symbols/msam10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/s
 ymbols/msbm10.pfb></usr/share/texmf-texlive/fonts/type1/hoekwater/stmaryrd/stma
 ry10.pfb>
-Output written on dissertation.pdf (28 pages, 558177 bytes).
+Output written on dissertation.pdf (29 pages, 562271 bytes).
 PDF statistics:
- 495 PDF objects out of 1000 (max. 8388607)
- 92 named destinations out of 1000 (max. 500000)
- 392 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 509 PDF objects out of 1000 (max. 8388607)
+ 95 named destinations out of 1000 (max. 500000)
+ 408 words of extra memory for PDF output out of 10000 (max. 10000000)
 

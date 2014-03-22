@@ -68,7 +68,7 @@ Jonathan E. Sherry\\
 \vspace{45pt}
 \includegraphics[scale=0.45]{1.png}\\
 }
-\author{Submitted May 2013 in partial fulfilment of the conditions of\\
+\author{Submitted May 2014 in partial fulfilment of the conditions of\\
 the award of the degree of BSc (Hons) Computer Science.\\
 \\
 I hereby declare that this dissertation is all my own work,\\
@@ -97,7 +97,9 @@ This paper serves to introduce and explain the notions of Martin L\"of Type Theo
 
 \chapter{Acknowledgements}
 This study would not have been made possible without the following:
-
+Thorsten\\
+Mum, Dad Tony\\
+etc.
 \chapter{Motivation}
 
 \part{Research}
@@ -355,10 +357,24 @@ $  \llbracket f,r\rrbracket (s,p) = (f(s),p \circ r_s) $
 
 
 \section{Quotient Containers}
+\subsection{Definition}
+Quotient containers are containers furnished with an equivalence relation. More formally, a quotient container $S \rhd P/G$ is defined as a container $S \rhd P$ and for each shape $s$ in $S$, a set of isomorphisms $G(s)$. This set of isomorphisms can be seen as some subgroup of the automorphism group of $P(s)$.
 
-permutable positions
+ From this definition, it follows that all containers are degenerate quotient containers where $G(s)$, the set of isomorphisms, is the empty set. 
 
-groupoid
+\subsection{Extention}
+The extention of a quotient container $S \rhd P/G$ is a functor:
+\begin{center}
+$T_{S \rhd P/G} : Set \rightarrow Set$\\
+$T_{S \rhd P/G}(x) = \Sigma s:S.(P(s) \rightarrow X)/\sim_{s}$, such that\\
+\end{center}
+$\sim_{s}$ is the equivalence relation on the set of functions $P(s) \rightarrow X$, such that
+\begin{center}
+$f \sim f'$ iff $\exists g \in G(s)$ where $f' = f \circ g$
+\end{center}
+
+
+
 
 \chapter{$\delta$ for Data}
 
