@@ -308,8 +308,6 @@ $ \prod_{(x:A)}^{} B(x) $ & $\forall x:A, B(x) $ & product & space of sections\\
 
 \chapter{Containers}
 \section{Introduction}
-
-
 \section{Definition}
 A unary container is defined as a pair $ (S \rhd P) $ where:
 \begin{enumerate}
@@ -335,8 +333,8 @@ or in Agda:
 The category of containers is composed of containers as objects and container morphisms.
 A container can be interpreted as an endofunctor (a categorical mapping from a category to itself):
 \begin{center}
-$\llbracket S \rhd P\rrbracket \in Set \to Set$\\
-$ \llbracket S \rhd P\rrbracket X = \Sigma s \in S. P s \to X $
+$\llbracket S \rhd P\rrbracket : Set \to Set$\\
+$ \llbracket S \rhd P\rrbracket X = \Sigma s : S. P s \to X $
 \end{center}
 and given containers $ (S \rhd P)$ and $ (T \rhd Q)$ morphism $ f \rhd r $ is given by:
 \linebreak
@@ -373,27 +371,55 @@ $\sim_{s}$ is the equivalence relation on the set of functions $P(s) \rightarrow
 $f \sim f'$ iff $\exists g \in G(s)$ where $f' = f \circ g$
 \end{center}
 
-
-
-
 \chapter{$\delta$ for Data}
-
+The idea of differentiation of parametric datatypes was introduced by Conor McBride in 2001. Expanding on Gerard Huet's \textit{Zipper} data structure\cite{zipper}, McBride established that the differential of a type is the \textbf{\textit{type of its one hole contexts}}. That is, if we take an arbitrary type parameterised over a type $X$, removing an item of this type $X$ from the data structure and replacing it with a `hole' or empty element will yeild its \textit{one hole context}. Replacing this hole with an element of type $X$ will produce the original type. This can be easily represented pictorally:
+\begin{center}
+DIAGRAM
+\end{center} 
+This chapter borrows its title from a 2005 paper by Abbott, Altenkirch, Ghani and McBride that serves to explain and analyse derivatives of data structures.
 \section{Differentiating Data Structures}
-
+The formalisation of the differentiation of data types is given by way of example. To find the differential of a type $FX = F_{1}X \times F_{2}X$, we must find the type of its one hole context. In the case of this type, a hole is:
+\begin{itemize}
+\item a hole in $F_{1}$, or
+\item a hole in $F_{2}$.
+\end{itemize}
+Thus, the type of $\delta F$, is the differential of $F_{1}$ and $F_{2}$ or the differential of $F_{2}$ and $F_{1}$. More formally,
+\begin{center}
+$\delta F \simeq \delta F_{1} \times F_{2} + F_{1} \times \delta F_{2} $
+\end{center}
+We may picture this as:
+\begin{center}
+DIAGRAM
+\end{center}
+It is worth comparing the rule for differentiating this type $F$ with the product rule from classical, differential calculus:
+\begin{center}
+$\delta F \simeq \delta F_{1} \times F_{2} + F_{1} \times \delta F_{2} $\\
+c.f.\\
+$\frac{d}{dx} (u \cdot v)= \frac{dv}{dx} \cdot u + v \cdot \frac{du}{dx}$
+\end{center} 
+On observation, it would appear that these are analogous. Indeed they are and all usual rules and laws of differential calculus such as the chain rule, product rule, et cetera apply to all parametric type contructors. This is fully investigated in (Abbot, 2003).
+\subsection{Differentiation of a List}
+By way of additional example for further illumination, we differentiate a list. Given the list functor,
+\begin{center}
+$L(X) \simeq 1 + X \times L(X)$,
+\end{center} 
+we may think of its type of one hole contexts to be the type where a hole is placed at an arbitrary position in a non-empty list. A list with a hole placed in the centre would give us two equally sized lists, while edge cases, in the form of holes at the head and tail of the list, would yeild a non-empty list and an empty list. Thus, our intuition tells us that the differential of a list is two lists. More formally, this is expressed as:
+\begin{center}
+$\delta L(X) \simeq L(X) + X \times \delta L(X)$
+\end{center}
 \section{Differentiating Containers}
+Similar to the notion of ``types of one hole contexts", the derivative of a container is the container that comprises all posible ways to remove a position from that container.\\
+For a container $(S \rhd P)$,
 \begin{center}
-$Cont^{\circ}(S \rhd P, T \rhd Q)$\\
-$r: \Pi s : S, Q(f s) \simeq  P s$\\
-$\Sigma S \rightarrow T$
+$\delta (S \rhd P) = (s,p) \Sigma s : S . P(s) \rhd \Sigma p':P(s),p \neq p'$.
 \end{center}
-Derivative:
+Considering the extention of a container, $T_{S \rhd P/G}(x) = \Sigma s:S.(P(s) \rightarrow X)/\sim_{s}$, we may express the differentiation of a container as:
 \begin{center}
-$Cont^{\circ}(H, \delta F) \simeq  Cont^{\circ}(H \times I, F)$\\
-$\delta (S \rhd P) = (s,p) \Sigma s : S . P(s) \rhd \Sigma p':P(s),p \neq p'$
+
 \end{center}
 
 
-Linear Container Derivative:
+\subsection{Differentiation of a List Container}
 \begin{center}
 $L = (S \rhd P)$ such that $S = \mathbb{N}, P = Fin(-)$\\
 $\delta(L) = \Sigma n : \mathbb{N}, p: Fin(n) \rhd \Sigma p' : Fin(n), p \neq p'$\\
@@ -471,6 +497,9 @@ Agda is a programming language come proof assistant based on Martin-L\"of Type T
   
 \bibitem{rp}  
   http://mathworld.wolfram.com/RussellsAntinomy.html
+  
+\bibitem{zipper}
+  http://en.wikibooks.org/wiki/Haskell/Zippers
 
 \end{thebibliography}
 \cleardoublepage

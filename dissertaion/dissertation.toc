@@ -39,14 +39,16 @@
 \contentsline {subsection}{\numberline {6.4.2}Extention}{17}{subsection.6.4.2}
 \contentsline {chapter}{\numberline {7}$\delta $ for Data}{18}{chapter.7}
 \contentsline {section}{\numberline {7.1}Differentiating Data Structures}{18}{section.7.1}
-\contentsline {section}{\numberline {7.2}Differentiating Containers}{18}{section.7.2}
-\contentsline {chapter}{\numberline {8}Agda}{19}{chapter.8}
-\contentsline {part}{III\hspace {1em}Quotient Containers in Homotopy Type Theory}{20}{part.3}
-\contentsline {chapter}{\numberline {9}Implementation}{21}{chapter.9}
-\contentsline {part}{IV\hspace {1em}Conclusions}{22}{part.4}
-\contentsline {chapter}{\numberline {10}Evaluation}{23}{chapter.10}
-\contentsline {chapter}{\numberline {11}Conclusion}{24}{chapter.11}
-\contentsline {chapter}{\numberline {12}Further Work}{25}{chapter.12}
-\contentsline {chapter}{Bibliography}{26}{section*.4}
-\contentsline {chapter}{Appendix}{27}{section*.6}
-\contentsline {chapter}{\numberline {13}Appendix}{27}{chapter.13}
+\contentsline {subsection}{\numberline {7.1.1}Differentiation of a List}{19}{subsection.7.1.1}
+\contentsline {section}{\numberline {7.2}Differentiating Containers}{19}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}Differentiation of a List Container}{20}{subsection.7.2.1}
+\contentsline {chapter}{\numberline {8}Agda}{21}{chapter.8}
+\contentsline {part}{III\hspace {1em}Quotient Containers in Homotopy Type Theory}{22}{part.3}
+\contentsline {chapter}{\numberline {9}Implementation}{23}{chapter.9}
+\contentsline {part}{IV\hspace {1em}Conclusions}{24}{part.4}
+\contentsline {chapter}{\numberline {10}Evaluation}{25}{chapter.10}
+\contentsline {chapter}{\numberline {11}Conclusion}{26}{chapter.11}
+\contentsline {chapter}{\numberline {12}Further Work}{27}{chapter.12}
+\contentsline {chapter}{Bibliography}{28}{section*.4}
+\contentsline {chapter}{Appendix}{29}{section*.6}
+\contentsline {chapter}{\numberline {13}Appendix}{29}{chapter.13}

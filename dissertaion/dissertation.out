@@ -36,7 +36,9 @@
 \BOOKMARK [2][-]{subsection.6.4.2}{Extention}{section.6.4}
 \BOOKMARK [0][-]{chapter.7}{ for Data}{part.2}
 \BOOKMARK [1][-]{section.7.1}{Differentiating Data Structures}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.1.1}{Differentiation of a List}{section.7.1}
 \BOOKMARK [1][-]{section.7.2}{Differentiating Containers}{chapter.7}
+\BOOKMARK [2][-]{subsection.7.2.1}{Differentiation of a List Container}{section.7.2}
 \BOOKMARK [0][-]{chapter.8}{Agda}{part.2}
 \BOOKMARK [-1][-]{part.3}{III Quotient Containers in Homotopy Type Theory}{}
 \BOOKMARK [0][-]{chapter.9}{Implementation}{part.3}
