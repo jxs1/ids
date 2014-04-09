@@ -1,5 +1,5 @@
-open import Data.AVL.Sets
-open import Groupoid
+
+open module Data.AVL.Sets
 
 module Containers where
 
@@ -13,6 +13,8 @@ record Functor : Sets where
                  obj : Set → Set
                  morp : (A , B : Set) → (A → B) → (obj A → obj B)
 
+〚 _ 〛c : Container → Functor
+
 record NatTrans (F , G : Functor) : Sets
                field
                  fam : (A : Set) → obj F A → obj G A 
@@ -23,9 +25,3 @@ record _→c_ {A , B : Container } : Set where
                field
                  shape : Shape A → Shape B
                  position : ∀ {s} 
-
-record QCont : Sets where
-             field
-               S : Groupoid
-               P : S → Set
-
