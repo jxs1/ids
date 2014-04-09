@@ -266,15 +266,7 @@ Dependent types are represented by a fibration - a mapping from a base space to 
 \subsection{Higher Inductive Types}
 \subsubsection{Multisets as a HIT}
 \begin{center}
-$S_M : Type_1$\\
-$e : \mathbb{N} \to S_M$\\
-$\epsilon : Fin(m) = Fin(n) \to e(m) = e(n) $\\
-\end{center}
-And family:
-\begin{center}
-$P_M : S_M \to Set$\\
-$P_M(e(n)) = Fin(n)$\\
-$P_M(\epsilon(\alpha)) = transport(Fin, \alpha)$\\
+
 \end{center}
 
 
@@ -439,9 +431,17 @@ Agda is a programming language come proof assistant based on Martin-L\"of Type T
 
 
 \part{Quotient Containers in Homotopy Type Theory}
-
 \chapter{Implementation}
-
+\begin{center}
+$S_M : Type_1$\\
+$e : \mathbb{N} \to S_M$\\
+$\epsilon : Fin(m) = Fin(n) \to e(m) = e(n) $\\
+\end{center}
+And family:
+\begin{center}
+$P_M : S_M \to Set$\\
+$P_M(e(n)) = Fin(n)$\\
+$P_M(\epsilon(\alpha)) = transport(Fin, \alpha)$\\
 
 \part{Conclusions}
 
