@@ -213,8 +213,6 @@ There exists $ x : A$ such that $P(x)$ is true & $\sum_{x : A}P(x)$\\
 \hline 
 \end{tabular} 
 \end{center} 
-\section{Equality proofs form a groupoid?}
-
 
 \chapter{Homotopy Type Theory}
 \section{Introduction}
@@ -264,8 +262,24 @@ Functions also behave functorially on paths, that is, all functions are continuo
 Dependent types are represented by a fibration - a mapping from a base space to a total space.
 
 \subsection{Higher Inductive Types}
-
-
+Inductive types are those that include instructions on how to produce elements of the type within its definition. The classical example of an inductive type is the type of natural numbers, \textit{nat} or $\mathbb{N}$. In agda, the definition of \textit{nat} is as follows:\\
+\begin{verbatim}
+                  data nat  : Set where
+                       zero : nat
+                       succ : (n : nat) -> nat
+\end{verbatim}
+Here, we define a base case \texttt{zero} and an inductive case which tales an element in \texttt{nat} and returns a new element --- the successor of that natural number. \\
+\\
+Similarly to conventional inductive types, higher inductive types provide instructions to generate not only points of a type but also paths and higher paths (paths between paths) in that type. The classical and most intuitive example of a higher inductive type is $\mathbb{S}_1$, the circle. $\mathbb{S}_1$ is defined by two constructors:\\
+\\
+\-\hspace{4cm}\texttt{base : $\mathbb{S}_1$}\\
+\-\hspace{4cm}\texttt{loop : base $=_{\mathbb{S}_1}$ base}
+\\
+\\
+Here, we define a base point, \texttt{base} the \textit{point constructor} and \texttt{loop}, a path from the base point to itself, the \textit{path (higher) constructor}. We may visualise this as follows:
+\begin{center}
+\includegraphics[scale=0.57]{3.png}
+\end{center}
 
 \section{Summary}
 
@@ -295,6 +309,11 @@ $ \prod_{(x:A)}^{} B(x) $ & $\forall x:A, B(x) $ & product & space of sections\\
 
 \chapter{Containers}
 \section{Introduction}
+The notion of Containers was first introduced in 2003 by Abbot, Altenkirch and Ghani\cite{coc} as a `template' with which many data types can be modelled. The fundamental idea of a container is that a datatype can be represented with a pair consisting of a set of \textit{\textbf{Shapes}} and a family of \textit{\textbf{Positions}}. The set of \textit{shapes} provides a description of the structure of the type and the \textit{positions} are mappings from positions in the shape to individual points of data. This can be visualised as below:
+\begin{center}
+\includegraphics[scale=0.65]{4.png}
+\end{center}
+For some arbitrary container parameterised over a type X, P(x) maps a shape to an element in X for x in X.
 \section{Definition}
 A unary container is defined as a pair $ (S \rhd P) $ where:
 \begin{enumerate}
@@ -361,22 +380,22 @@ $f \sim f'$ iff $\exists g \in G(s)$ where $f' = f \circ g$
 \chapter{$\delta$ for Data}
 The idea of differentiation of parametric datatypes was introduced by Conor McBride in 2001. Expanding on Gerard Huet's \textit{Zipper} data structure\cite{zipper}, McBride established that the differential of a type is the \textbf{\textit{type of its one hole contexts}}. That is, if we take an arbitrary type parameterised over a type $X$, removing an item of this type $X$ from the data structure and replacing it with a `hole' or empty element will yeild its \textit{one hole context}. Replacing this hole with an element of type $X$ will produce the original type. This can be easily represented pictorally:
 \begin{center}
-DIAGRAM
+\includegraphics[scale=0.6]{5.png}
 \end{center} 
 This chapter borrows its title from a 2005 paper by Abbott, Altenkirch, Ghani and McBride that serves to explain and analyse derivatives of data structures.
 \section{Differentiating Data Structures}
 The formalisation of the differentiation of data types is given by way of example. To find the differential of a type $FX = F_{1}X \times F_{2}X$, we must find the type of its one hole context. In the case of this type, a hole is:
-\begin{itemize}
+\begin{enumerate}
 \item a hole in $F_{1}$, or
 \item a hole in $F_{2}$.
-\end{itemize}
+\end{enumerate}
 Thus, the type of $\delta F$, is the differential of $F_{1}$ and $F_{2}$ or the differential of $F_{2}$ and $F_{1}$. More formally,
 \begin{center}
 $\delta F \simeq \delta F_{1} \times F_{2} + F_{1} \times \delta F_{2} $
 \end{center}
 We may picture this as:
 \begin{center}
-DIAGRAM
+\includegraphics[scale=0.8]{6.png}
 \end{center}
 It is worth comparing the rule for differentiating this type $F$ with the product rule from classical, differential calculus:
 \begin{center}
@@ -384,7 +403,7 @@ $\delta F \simeq \delta F_{1} \times F_{2} + F_{1} \times \delta F_{2} $\\
 c.f.\\
 $\frac{d}{dx} (u \cdot v)= \frac{dv}{dx} \cdot u + v \cdot \frac{du}{dx}$
 \end{center} 
-On observation, it would appear that these are analogous. Indeed they are and all usual rules and laws of differential calculus such as the chain rule, product rule, et cetera apply to all parametric type contructors. This is fully investigated in (Abbot, 2003).
+On observation, it would appear that these are analogous. Indeed they are and all usual rules and laws of differential calculus such as the chain rule, product rule, et cetera apply to all parametric type contructors. This is fully investigated in Abbot, 2003\cite{coc}.
 \subsection{Differentiation of a List}
 By way of additional example for further illumination, we differentiate a list. Given the list functor,
 \begin{center}
@@ -395,15 +414,13 @@ we may think of its type of one hole contexts to be the type where a hole is pla
 $\delta L(X) \simeq L(X) + X \times \delta L(X)$
 \end{center}
 \section{Differentiating Containers}
-Similar to the notion of ``types of one hole contexts", the derivative of a container is the container that comprises all posible ways to remove a position from that container.\\
-For a container $(S \rhd P)$,
+Similar to the notion of ``types of one hole contexts", the derivative of a container is the container that comprises all posible ways to remove a position from that container.
+\newpage
+Thus, for a container $(S \rhd P)$,
 \begin{center}
 $\delta (S \rhd P) = (s,p) \Sigma s : S . P(s) \rhd \Sigma p':P(s),p \neq p'$.
 \end{center}
-Considering the extention of a container, $T_{S \rhd P/G}(x) = \Sigma s:S.(P(s) \rightarrow X)/\sim_{s}$, we may express the differentiation of a container as:
-\begin{center}
 
-\end{center}
 
 
 \subsection{Differentiation of a List Container}
@@ -468,6 +485,11 @@ $P_M(\epsilon(\alpha)) = transport(Fin, \alpha)$\\
   The Univalent Foundations Program, Institute for Advanced Study,
   \emph{Homotopy type theory: Univalent foundations of mathematics}.
   2013.
+
+\bibitem{coc}
+  Michael Abbott, Thorsten Altenkirch, Neil Ghani,
+  \emph{Categories of Containers}.
+  2003.
 
 \bibitem{hott1}
   Michael Abbott, Thorsten Altenkirch, Neil Ghani,
