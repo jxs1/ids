@@ -88,13 +88,16 @@ Date \line(1,0){40}/\line(1,0){40}/\line(1,0){40}\\
 \lhead[]{\thepage}
 \rhead[\thepage]{}
 
-\part{Introduction, Preliminaries and Meta-Comment}
+\setcounter{chapter}{-1}
 \chapter{Abstract}
-
-
 This paper serves to introduce and explain the notions of Martin L\"of Type Theory, Homotopy Type Theory, Containers and Differentiation of Data structures. Using ideas from each of these fields, Quotient Containers are introduced - specifically a multiset container and implmented in \textit{Agda}. The veracity of the implementation is then tested through differentiating a multiset container and concluding that the implementation behaves as one would expect and is true to theory.
 
-\chapter{Acknowledgements}
+\Huge
+
+\noindent \textbf{Acknowledgements}
+
+\normalsize
+
 This study would not have been made possible without the following:\\
 \\
 Prof. Thorsten Altenkirch for his support and help as my dissertation supervisor.\\
@@ -103,7 +106,9 @@ My parents, for their love and support.\\
 \\
 Special thanks go to Nicolai Kraus and Ambrus Kaposi of the Functional Programming Lab, for their help over the duration of the project and for always making time for me.\\
 \\
-Also, Ted.
+Also, Ted, Sam and India.
+
+\part{Introduction, Preliminaries and Meta-Comment}
 \chapter{Project Overview}
 This section serves to provide a brief overview of the project itself covering the structure, aims and objectives and motivation for this work. 
 
@@ -114,14 +119,20 @@ This section serves to provide a brief overview of the project itself covering t
 
 \subsection{Aims and Objectives}
 The initial aims and objectives that were outlined in my project proposal were as follows:
-\begin{enumerate}
+\begin{itemize}
 \item To research and understand Homotopy Type Theory
 \item To research and understand Quotient Containers and their applications
 \item To formalise the notion of Quotient Containers within the context of Homotopy Type Theory
 \item To potentially explore applications of Quotient Containers within the context of Homotopy Type Theory
 \item To potentially explore interesting or novel theorems surrounding Quotient Containers in Homotopy Type Theory
-\end{enumerate}
+\end{itemize}
+
+While these aims remain largely valid, as the project has progressed my aims have become more focussed and less diffuse. Keeping the above strongly in mind, the primary aim of this project is to produce an Agda implementation of a multiset container in homotopy type theory. Secondarily, this  written work serves to evidence the research and understanding necessary to produce such an implementation while acting as a suitable introduction to key concepts in the subject area.\\
+\\
+Given the abstract and theory oriented nature of the project it is difficult to give concrete aims and objectives to the code produced other than that it should be well written and fit for purpose. The code should also be written with an eye on ease of maintainability and extensibility. 
+
 \section{Structure of Report}
+This section serves to introduce the layout and organisation of the rest of the document. 
 
 
 
