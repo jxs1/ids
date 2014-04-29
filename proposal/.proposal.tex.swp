@@ -1,0 +1,145 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{sidecap}
+\usepackage{stmaryrd}
+\usepackage{pdfpages}
+\usepackage{wrapfig}
+\usepackage[margin=0.5in]{geometry}
+
+
+\begin{document}
+
+\begin{titlepage}
+
+\title{\vspace{150pt}
+	G53IDS - Project Proposal
+	\begin{center}
+	\huge{Quotient Containers in Homotopy Type Theory}		
+	\end{center}				}
+\author{Jonathan Sherry\\ Supervisor: Thorsten Altenkirch	}
+\date{14th October 2013}
+
+
+\maketitle
+\thispagestyle{empty}
+\end{titlepage}
+
+\pagebreak
+\clearpage
+\setcounter{page}{1}
+
+\part{Project Title}
+The agreed title of my dissertation will be '\textit{Quotient Containers in Homotopy Type Theory}'. 
+
+\part{Background and Motivation}
+\section{Homotopy Type Theory}
+Homotopy type theory is a new branch of mathematics pioneered by \textit{The Univalent Foundations Program} at The Institute for Advanced Study, Princeton. It seeks to marry Martin-L\"{o}f's intensional type theory with the topological notion of homotopy theory.\\
+\\
+Fundamentally, this means that terms of a type are represented as points of a space and a function $ f : A \to B $ represents a continuous mapping from space $ A $ to space $ B $. In addition, for $ a,b : A $ such that you can logically identify a with b ($a = b$), it is given that in homotopy type theory a path $ p : a \leadsto b $ exists between a and b in the space A. Thusly, it also follows that two functions $ f,g : A \to B $ can be identified if they are homotopic, that is, $ f $ can be continuously deformed into $ g $. Supplementary to this, a dependent type $ x : A \vdash B(x) $ would be represented as a fibration $ B \to A $, a mapping from a total space onto a base space. \\
+\\
+These novel ways of interpreting type-theoretic constructs lead to theorems and proofs inheriting homotopical meanings and a new logical system can be used.\\
+\\
+Not only does homotopy type theory have mathematical implications in terms of the formalisation of homotopy theory and higher-dimensional category theory it can also be used in proof assistants like \textit{Agda} (see below) and \textit{Coq} to allow a more expressive type system and more formal proofs of mathematical theorems.
+
+
+\section{Containers}
+Containers are a type theoretic abstraction that act as a `wrapper' around collection types, such as lists, queues, trees etc. allowing them to be represented in  a uniform manner. A unary container is formally defined as a pair $ (S \rhd P)$ such that $ S : Set $ and $ P : S \to Set $ where elements of the set S are \textit{shapes} of the container (constructors with non-recursive arguments) and elements of $P(s)$ are the \textit{positions} of s for $ s : S $ (constructors with recursive arguments). A simple example is a container representing the List type:
+
+\begin{verbatim}
+                                 data List (A : Set) : Set where
+                                        Nil : List A
+                                        Cons : A → List A → List A
+\end{verbatim}
+which would have the form $ (S \rhd P)$ such that $ S = 1 + A $, as there two non recursive constructors (namely \texttt{Nil} and \texttt{Cons}, the latter parameterised with \texttt{A}) and $ P = 0 $, as there are no recursive constructors.\\
+\\
+A container represents an endofunctor (a categorical mapping from a category to itself):
+\begin{center}
+$\llbracket S \rhd P\rrbracket \in Set \to Set$\\
+$ \llbracket S \rhd P\rrbracket X = \Sigma s \in S. P s \to X $
+\end{center}
+and given containers $ (S \rhd P)$ and $ (T \rhd Q)$ morphism $ f \rhd r $ is given by:
+\begin{center}
+$f \in S \to T$\\
+$r \in \Pi _{s \in S} Q(f s) \to P s $\\
+\end{center}
+This constitutes the category of containers.
+
+
+
+\section{Agda}
+Agda is a dependently typed functional programming language and formal, interactive proof assistant developed by Ulf Norell at Chalmers University of Technology. Based on Martin-L\"{o}f Type Theory, Agda is extensively used in type-theoretic research due to its strong links with type theory and many other programming language features suitable for practical applications.
+
+\section{Motivation}
+While \textit{Quotient Containers in Homotopy Type Theory} may seem a little esoteric, there are several practical applications of a successful outcome to this project --- especially in derivative work. The most useful is perhaps formalising quotient containers in a programming language, giving a very expressive type more exposure and documentation. Ultimately though, I see this project as an opportunity to work within the context of a nascent and bleeding edge area of theoretical computer science while building on existing knowledge of functional programming, type theory and category theory. 
+
+\part{Aims and Objectives}
+\begin{enumerate}
+\item To research and understand Homotopy Type Theory
+\item To research and understand Quotient Containers and their applications
+\item To formalise the notion of Quotient Containers within the context of Homotopy Type Theory
+\item To potentially explore applications of Quotient Containers within the context of Homotopy Type Theory
+\item To potentially explore interesting or novel theorems surrounding Quotient Containers in Homotopy Type Theory
+\end{enumerate}
+
+\part{Project Plan}
+\begin{center}
+\begin{tabular}{l l}
+
+ \textbf{25 October - 20 November 2013} & Ongoing research into HoTT and Quotient Containers \\
+ \textbf{25 October - 20 November 2013} & Ongoing learning of Agda \\
+ \textbf{20 November - 26 November 2013} & Preparation for presentation \\
+ \textit{\textbf{27 November 2013}} & Presentation of progress \\
+ \textbf{28 November - 31 January 2014} & Continued relevant and more focussed research  \\
+ \textbf{01 February - 24 February 2014} & Writing of dissertation outline and sample chapter \\
+
+ \textbf{25 February - 27 February 2014} & Proof read/copy edit/typeset sample chapter \\
+ \textit{\textbf{28 February 2014}} & Submission of dissertation outline and sample chapter \\
+ \textbf{31 March 2014} & Complete first draft of dissertation \\
+ \textbf{01 April - 31 April 2014} & Redraft and rewrite dissertation \\
+ \textbf{31 April 2014} & \underline{Complete dissertation} \\
+ \textbf{01 May - 11 May 2014} & Final checks and typesetting of dissertation \\
+ \textbf{01 May - 13 May 2014} & Preparation for demonstration of project \\
+ \textit{\textbf{12 May 2014}} & Submission of complete dissertation \\
+ \textit{\textbf{14 May 2014}} & Demonstration of project \\
+ 
+\end{tabular}
+\end{center}
+
+\begin{thebibliography}{10}
+
+
+\bibitem{hott}
+  The Univalent Foundations Program, Institute for Advanced Study,
+  \emph{Homotopy type theory: Univalent foundations of mathematics}.
+  2013.
+
+\bibitem{hott1}
+  Michael Abbott, Thorsten Altenkirch, Neil Ghani,
+  \emph{Constructing Strictly Positive Types}.
+  2004.
+  
+\bibitem{hot2}
+  Michael Abbott, Thorsten Altenkirch, Neil Ghani, Connor McBride,
+  \emph{$\delta$ for Data, Differentiating Data Structures}.
+  2005.
+
+\bibitem{hott3}
+  Hakon Robbestad Gylterud,
+  \emph{Symmetric Containers (MSc Thesis)}.
+  2005.
+  
+\bibitem{;luhg;}
+  Thorsten Altenkirch, Paul Levy, Sam Staton,
+  \emph{Higher Order Containers}
+  2010.
+  
+\bibitem{hott4}
+  http://homotopytypetheory.org/
+ 
+
+  
+\end{thebibliography}
+
+\end{document}

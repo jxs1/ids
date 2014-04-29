@@ -88,22 +88,44 @@ Date \line(1,0){40}/\line(1,0){40}/\line(1,0){40}\\
 \lhead[]{\thepage}
 \rhead[\thepage]{}
 
-\part{Introduction}
-
+\part{Introduction, Preliminaries and Meta-Comment}
 \chapter{Abstract}
 
 
 This paper serves to introduce and explain the notions of Martin L\"of Type Theory, Homotopy Type Theory, Containers and Differentiation of Data structures. Using ideas from each of these fields, Quotient Containers are introduced - specifically a multiset container and implmented in \textit{Agda}. The veracity of the implementation is then tested through differentiating a multiset container and concluding that the implementation behaves as one would expect and is true to theory.
 
 \chapter{Acknowledgements}
-This study would not have been made possible without the following:
-Thorsten\\
-Mum, Dad Tony\\
-etc.
-\chapter{Motivation}
+This study would not have been made possible without the following:\\
+\\
+Prof. Thorsten Altenkirch for his support and help as my dissertation supervisor.\\
+\\
+My parents, for their love and support.\\
+\\
+Special thanks go to Nicolai Kraus and Ambrus Kaposi of the Functional Programming Lab, for their help over the duration of the project and for always making time for me.\\
+\\
+Also, Ted.
+\chapter{Project Overview}
+This section serves to provide a brief overview of the project itself covering the structure, aims and objectives and motivation for this work. 
+
+\section{Background and Motivation}
+
+
+\section{Description of Work}
+
+\subsection{Aims and Objectives}
+The initial aims and objectives that were outlined in my project proposal were as follows:
+\begin{enumerate}
+\item To research and understand Homotopy Type Theory
+\item To research and understand Quotient Containers and their applications
+\item To formalise the notion of Quotient Containers within the context of Homotopy Type Theory
+\item To potentially explore applications of Quotient Containers within the context of Homotopy Type Theory
+\item To potentially explore interesting or novel theorems surrounding Quotient Containers in Homotopy Type Theory
+\end{enumerate}
+\section{Structure of Report}
+
+
 
 \part{Research}
-
 \chapter{Martin-L\"of Type Theory}
 \section{Introduction}
 Martin-L\"of type theory is a form of constructive, intuitionistic type theory that is both a programming language and an alternative foundation of mathematics. Devised by Swedish mathematician and philosopher Per Martin-L\"of in 1972, Martin-L\"of type theory (MLTT) serves to provide a set of formal rules and type-theoretic connectives to perform mathematical reasoning.
@@ -424,13 +446,20 @@ $\delta (S \rhd P) = (s,p) \Sigma s : S . P(s) \rhd \Sigma p':P(s),p \neq p'$.
 
 
 \subsection{Differentiation of a List Container}
+By way of example, we differentiate a list container. Given a list container \textit{L}:
 \begin{center}
-$L = (S \rhd P)$ such that $S = \mathbb{N}, P = Fin(-)$\\
-$\delta(L) = \Sigma n : \mathbb{N}, p: Fin(n) \rhd \Sigma p' : Fin(n), p \neq p'$\\
-$\simeq $\\
-$(m,n): \mathbb{N} \times \mathbb{N} \rhd Fin(n) + Fin(n)$\\
-$= (L \times L)$\\
+$L = (S \rhd P)$ such that $S = \mathbb{N}, P = Fin(-)$,
+\end{center}
+As in \textbf{7.2}:
+\begin{center}
+$\delta(L) = \Sigma n : \mathbb{N}, p: Fin(n) \rhd \Sigma p' : Fin(n), p \neq p'$
 \end{center} 
+This effectively splits the list, yielding
+\begin{center}
+$(m,n): \mathbb{N} \times \mathbb{N} \rhd Fin(n) + Fin(n)$,
+\end{center}
+a pair of lists $(m,n)$ such that m \texttt{++} n would give the original list. As such, $\delta(L) = (L \times L)$, which is what we would expect from differentiating a list as in \textbf{7.1.1}.
+
 
 
 \chapter{Agda}
