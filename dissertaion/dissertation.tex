@@ -89,7 +89,11 @@ Date \line(1,0){40}/\line(1,0){40}/\line(1,0){40}\\
 \rhead[\thepage]{}
 
 \setcounter{chapter}{-1}
-\chapter{Abstract}
+\chapter{}
+\Huge
+\noindent \textbf{Abstract}\\
+
+\normalsize
 This paper serves to introduce and explain the notions of Martin L\"of Type Theory, Homotopy Type Theory, Containers and Differentiation of Data structures. Using ideas from each of these fields, Quotient Containers are introduced - specifically a multiset container and implmented in \textit{Agda}. The veracity of the implementation is then tested through differentiating a multiset container and concluding that the implementation behaves as one would expect and is true to theory.
 
 \Huge
@@ -106,13 +110,27 @@ My parents, for their love and support.\\
 \\
 Special thanks go to Nicolai Kraus and Ambrus Kaposi of the Functional Programming Lab, for their help over the duration of the project and for always making time for me.\\
 \\
-Also, Ted, Sam and India.
+Samuel Ballance for ``all of [his] support, both emotional and structural".
+\\
+\\
+Also, Ted, Sam, India and Standard.
 
 \part{Introduction, Preliminaries and Meta-Comment}
 \chapter{Project Overview}
 This section serves to provide a brief overview of the project itself covering the structure, aims and objectives and motivation for this work. 
 
 \section{Background and Motivation}
+Containers were first introduced in 2003 by Abbot, Altenkirch and Ghani\cite{coc}. In this, they lay the groundwork for future work through formalising containers as a template with which strictly positive types, shapely types and other types can be represented.\\
+\\
+The notion of containers was then generalised in 2005 by Altenkirch and Morris\cite{icont} to capture not only strictly positive types, but also strictly positive families with \textit{indexed containers}.\\
+\\
+2011 saw Gylterud\cite{hott3} further expand the container family with the introduction of \textit{symmetric containers}. A more generalised notion of a container such that the set of shapes is a groupoid.\\
+\\
+This project would see a formalisation and exploration of \textit{quotient containers} building on the above and adding to the container family while exploring their usage in Homotopy type theory --- a new branch of mathematics developed by The Univalent Foundations Program at The Institute for Advanced Study, Princeton during 2013.\\
+\\
+The undertaking of this project not only allows me to work within well established fields of study such as type theory and category theory, utilising the work of influential academics but also affords me the opportunity to explore and research a nascent and bleeding edge are of theoretical computer science --- an opportunity which I relish.\\
+\\
+A successful project will also have applications in a number of ways. A sound implementation of multisets in Agda could potentially be appended to the Agda Homotopy type theory library, providing a resource for further research. In addition, it adds more documentation to a young branch of mathematics and has potential implications in other fields such as datatype-generic programming.
 
 
 \section{Description of Work}
@@ -132,7 +150,7 @@ While these aims remain largely valid, as the project has progressed my aims hav
 Given the abstract and theory oriented nature of the project it is difficult to give concrete aims and objectives to the code produced other than that it should be well written and fit for purpose. The code should also be written with an eye on ease of maintainability and extensibility. 
 
 \section{Structure of Report}
-This section serves to introduce the layout and organisation of the rest of the document. 
+This section serves to introduce the layout and organisation of the rest of the document. The understanding of my project requires a background knowledge in a number of different areas. \textbf{Part II} (Chapter 2 through 6) aims to cover those key areas and provide the reader with enough information for the subsequent part. \textbf{Part II} also presents an exposition and summary of some of the research performed during the project. \textbf{Part III} is an overview of my implementation and discusses the novelties and usage of quotient containers in homotopy type theory. The document concludes with \textbf{Part IV} which summarises the achievements of the project and gives a critical appraisal and personal reflection of the work. Finally, Chapter 10 discusses further work that could be performed in the area. 
 
 
 
@@ -246,6 +264,9 @@ There exists $ x : A$ such that $P(x)$ is true & $\sum_{x : A}P(x)$\\
 \hline 
 \end{tabular} 
 \end{center} 
+
+\chapter{Agda}
+Agda is a programming language come proof assistant based on Martin-L\"of Type Theory (See \textbf{Chapter 2}).
 
 \chapter{Homotopy Type Theory}
 \section{Introduction}
@@ -393,23 +414,6 @@ $  \llbracket f,r\rrbracket (s,p) = (f(s),p \circ r_s) $
 \end{center}
 
 
-\section{Quotient Containers}
-\subsection{Definition}
-Quotient containers are containers furnished with an equivalence relation. More formally, a quotient container $S \rhd P/G$ is defined as a container $S \rhd P$ and for each shape $s$ in $S$, a set of isomorphisms $G(s)$. This set of isomorphisms can be seen as some subgroup of the automorphism group of $P(s)$.
-
- From this definition, it follows that all containers are degenerate quotient containers where $G(s)$, the set of isomorphisms, is the empty set. 
-
-\subsection{Extention}
-The extention of a quotient container $S \rhd P/G$ is a functor:
-\begin{center}
-$T_{S \rhd P/G} : Set \rightarrow Set$\\
-$T_{S \rhd P/G}(x) = \Sigma s:S.(P(s) \rightarrow X)/\sim_{s}$, such that\\
-\end{center}
-$\sim_{s}$ is the equivalence relation on the set of functions $P(s) \rightarrow X$, such that
-\begin{center}
-$f \sim f'$ iff $\exists g \in G(s)$ where $f' = f \circ g$
-\end{center}
-
 \chapter{$\delta$ for Data}
 The idea of differentiation of parametric datatypes was introduced by Conor McBride in 2001. Expanding on Gerard Huet's \textit{Zipper} data structure\cite{zipper}, McBride established that the differential of a type is the \textbf{\textit{type of its one hole contexts}}. That is, if we take an arbitrary type parameterised over a type $X$, removing an item of this type $X$ from the data structure and replacing it with a `hole' or empty element will yeild its \textit{one hole context}. Replacing this hole with an element of type $X$ will produce the original type. This can be easily represented pictorally:
 \begin{center}
@@ -472,18 +476,25 @@ $(m,n): \mathbb{N} \times \mathbb{N} \rhd Fin(n) + Fin(n)$,
 a pair of lists $(m,n)$ such that m \texttt{++} n would give the original list. As such, $\delta(L) = (L \times L)$, which is what we would expect from differentiating a list as in \textbf{7.1.1}.
 
 
-
-\chapter{Agda}
-Agda is a programming language come proof assistant based on Martin-L\"of Type Theory (See \textbf{Chapter 4}).
-
-
-
-
-
-
-
 \part{Quotient Containers in Homotopy Type Theory}
-\chapter{Implementation}
+\chapter{Quotient Containers}
+\section{Definition}
+Quotient containers are containers furnished with an equivalence relation. More formally, a quotient container $S \rhd P/G$ is defined as a container $S \rhd P$ and for each shape $s$ in $S$, a set of isomorphisms $G(s)$. This set of isomorphisms can be seen as some subgroup of the automorphism group of $P(s)$.
+
+ From this definition, it follows that all containers are degenerate quotient containers where $G(s)$, the set of isomorphisms, is the empty set. 
+
+\section{Extention}
+The extention of a quotient container $S \rhd P/G$ is a functor:
+\begin{center}
+$T_{S \rhd P/G} : Set \rightarrow Set$\\
+$T_{S \rhd P/G}(x) = \Sigma s:S.(P(s) \rightarrow X)/\sim_{s}$, such that\\
+\end{center}
+$\sim_{s}$ is the equivalence relation on the set of functions $P(s) \rightarrow X$, such that
+\begin{center}
+$f \sim f'$ iff $\exists g \in G(s)$ where $f' = f \circ g$
+\end{center}
+
+\chapter{fg}
 \begin{center}
 $S_M : Type_1$\\
 $e : \mathbb{N} \to S_M$\\
@@ -545,6 +556,10 @@ $P_M(\epsilon(\alpha)) = transport(Fin, \alpha)$\\
   Hakon Robbestad Gylterud,
   \emph{Symmetric Containers (MSc Thesis)}.
   2005.
+  
+\bibitem{icont}
+  Thorsten Altenkirch, Peter Morris,
+  \emph{Indexed Containers}
   
 \bibitem{;luhg;}
   Thorsten Altenkirch, Paul Levy, Sam Staton,
