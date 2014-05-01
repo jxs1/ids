@@ -266,7 +266,67 @@ There exists $ x : A$ such that $P(x)$ is true & $\sum_{x : A}P(x)$\\
 \end{center} 
 
 \chapter{Agda}
-Agda is a programming language come proof assistant based on Martin-L\"of Type Theory (See \textbf{Chapter 2}).
+\section{Introduction}
+Agda is both a programming language and proof assistant based on Martin-L\"of Type Theory (See \textbf{Chapter 2}). Developed by Ulf Norell at Chalmers University of Technology, Agda has dependent types and Haskell inspired syntax. Among its other major features are MLTT's logical framework and universes, implicit arguments, and support for coinductive data types. Agda compiles via Haskell and has a powerful emacs interface that can allow the programmer to type check an unfinished program and use tactics and holes to procure useful information on how to complete missing parts. Agda also has support for unicode characters and mixfix operators. There are a number of benefits in using Agda, including the elimination of errors at runtime, the ability to program with types as data and automatic proof checking as well as all the usual benefits of using a statically typed functional programming language. \\
+\\
+As part of the \textit{Univalent Foundations Program}, a Homotopy type theory and univalent foundations library was developed in Agda to provide key tools in HoTT to programmers\cite{hottagda}. \\
+\\
+Agda is used throughout this document and a primary aim of this project is to produce a piece of Agda code. As such, this chapter will serve as a brief overview of and introduction to Agda through a number of worked examples.
+
+\section{Type Declarations}
+One of the simplest types we can define is Bool. In Agda, this is defined:
+\begin{verbatim}
+                      data Bool : Set where
+                           true : Bool
+                           false: Bool
+
+\end{verbatim}
+
+This definition states the following:
+\begin{itemize}
+\item The type Bool is a set
+\item The type Bool has two constructors: \begin{enumerate} \item true \item false \end{enumerate}
+\item The type Bool has no other constructors
+\item true in bool is not equal to false in bool
+\end{itemize}
+
+\subsection{Inductive Types}
+Inductive types are also available in Agda, such as this familiar definition of $\mathbb{N}$, the set of natural numbers:
+\begin{verbatim}
+                  data Nat  : Set where
+                       zero : nat
+                       succ : (n : nat) -> nat
+\end{verbatim}
+Inductive types are touched upon later when discussing higher inductive types (\textbf{4.2.5}).
+
+\section{Functions}
+Simple functions are defined in a very similar manner to Haskell. Here we define the \textit{if then else} construct and the \textit{map} function: 
+\begin{verbatim}
+            if_then_else_ : {A : Set} -> Bool -> A -> A -> A
+            if true then x else y = x  
+            if false then x else y = y
+                        
+            map : {A B : Set} -> (A -> B) -> List A -> List B
+            map f [] = []
+            map f (x :: xs) = f x :: map f xs        
+\end{verbatim}
+These functions show various aspects of Agda's syntax. The \texttt{if\_then\_else} is exhaustively defined and uses pattern matching on wildcards (\_) while \texttt{map} is a good example of a polymorphic function that utilises recursion and pattern matches on more complex arguments, namely a list matched by \texttt{x} --- the head of a list; the cons operator (\_::\_) and \texttt{xs} --- the tail of the list.
+
+\section{Dependently typed functions}
+Given the dependent type of finite sets, defined as an inductive family as follows:
+\begin{verbatim}
+              data Fin : Nat -> Set where
+                 fzero : {n : Nat} -> Fin (succ n)
+                 fsucc : {n : Nat} -> Fin n -> Fin (succ n)
+\end{verbatim}
+that is, \textit{Fin n} contains exactly \textit{n} elements, e.g. \texttt{Fin 3 = fzero, fsucc fzero, fsucc (fsucc fzero)}, we can define the dependent function \texttt{fromNat}, which takes a natural number, \texttt{n} and produces \texttt{Fin n}.
+\begin{verbatim}
+              fromNat : (n : Nat) -> Fin (succ n)
+                fromNat zero = fzero  
+                fromNat (succ n) = succ (fromNat n)
+\end{verbatim}
+\section{Conclusion}
+The above has been a \textit{very} brief introduction to the basics of agda but should be sufficient to keep this document self contained. Although fuller understanding of this project would require further study of the Agda standard library and the Homotopy type theory library.
 
 \chapter{Homotopy Type Theory}
 \section{Introduction}
@@ -335,6 +395,7 @@ Here, we define a base point, \texttt{base} the \textit{point constructor} and \
 \includegraphics[scale=0.57]{3.png}
 \end{center}
 
+\pagebreak
 \section{Summary}
 
 The following table summarises the different interpretations of analogous concepts in the languages of type theory, logic, Zermelo-Fraenkel set theory and homotopy type theory:
@@ -388,6 +449,38 @@ or in Agda:
 \end{verbatim}
  $Con_{List} = (S \rhd P) $ such that \textit{S}, the set of shapes, is $\mathbb{N}$, the set of natural numbers and \textit{P}, the family of positions is $Fin(-)$. The functor $\llbracket Con_{List} \rrbracket$ maps a set to the set of finite sequences in A.
 
+\section{Operations on Containers}
+\subsection{Product Containers}
+Given two containers $(S \rhd P)$ and $ (T \rhd Q)$, a product container is defined:
+\begin{center}
+$(S \rhd P) \times (T \rhd Q) = (s,t): (S \times T) \rhd (P(s) + Q(t))$
+\end{center}
+Interpretation:
+\begin{center}
+$\llbracket (S \rhd P) \times (T \rhd Q) \rrbracket (A)= \llbracket(S \rhd P) \rrbracket (A) \times \llbracket (T \rhd Q) \rrbracket (A)$
+\end{center}
+
+\subsection{Coproduct Containers}
+Given two containers $(S \rhd P)$ and $ (T \rhd Q)$, a coproduct container is defined:
+\begin{center}
+$(S \rhd P) + (T \rhd Q) = (x:S + T) \rhd $(\texttt{if (x = inl(s) then} \textit{P(s)} \texttt{else}$\dagger$ \textit{Q(t)} \texttt{)})
+\end{center}
+$\dagger$ The else branch implicitly means that \texttt{x = inr(t)}.
+Interpretation:
+\begin{center}
+$\llbracket (S \rhd P) + (T \rhd Q) \rrbracket (A)= \llbracket(S \rhd P) \rrbracket (A) + \llbracket (T \rhd Q) \rrbracket (A)$
+\end{center}
+
+
+\subsection{Composite Containers}
+Given two containers $(S \rhd P)$ and $ (T \rhd Q)$, a composite container is defined:
+\begin{center}
+$(S \rhd P) \circ (T \rhd Q) = (\Sigma s:S,f:P(s) \to T) \rhd (\Sigma p:P(s).Q(f(p))))$
+\end{center}
+Interpretation:
+\begin{center}
+$\llbracket (S \rhd P) + (T \rhd Q) \rrbracket (A)= \llbracket(S \rhd P) \rrbracket (\llbracket (T \rhd Q) \rrbracket (A))$
+\end{center}
 
 \section{Category of Containers}
 The category of containers is composed of containers as objects and container morphisms.
@@ -405,8 +498,14 @@ $ \sum_{f : S \to T} r : \prod_{x \in S} Q(f(x)) \to P(x)$
 \end{center}
 Pictorally, this is represented as:
 \begin{center}
-\includegraphics[scale=1]{cm.png}
+\includegraphics[scale=1]{conmor.png}
 \end{center}
+As an example of a container morphism we define \textit{reverse} for list containers:
+\begin{center}
+$reverse:\Pi_{A:Set} List(A) \to List(A)$\\
+$reverse = \lambda n.n \rhd \lambda n,i.n-1$
+\end{center}
+
 These container morphisms give rise to natural transformations, morphisms of functors. Given containers $ (S \rhd P)$ and $ (T \rhd Q)$, and a container morphism $ (f , r) : (S \rhd P) \to (S \rhd P)$ we can define a natural transformation:
 \begin{center}
 $ \llbracket f,r\rrbracket : \llbracket S \rhd P\rrbracket \Rightarrow \llbracket T \rhd Q\rrbracket$ \\
@@ -474,7 +573,6 @@ This effectively splits the list, yielding
 $(m,n): \mathbb{N} \times \mathbb{N} \rhd Fin(n) + Fin(n)$,
 \end{center}
 a pair of lists $(m,n)$ such that m \texttt{++} n would give the original list. As such, $\delta(L) = (L \times L)$, which is what we would expect from differentiating a list as in \textbf{7.1.1}.
-
 
 \part{Quotient Containers in Homotopy Type Theory}
 \chapter{Quotient Containers}
@@ -574,6 +672,9 @@ $P_M(\epsilon(\alpha)) = transport(Fin, \alpha)$\\
   
 \bibitem{zipper}
   http://en.wikibooks.org/wiki/Haskell/Zippers
+  
+\bibitem{hottagda}
+  https://github.com/HoTT/HoTT-Agda
 
 \end{thebibliography}
 \cleardoublepage
