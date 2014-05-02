@@ -634,7 +634,7 @@ We now briefly recap on two important points:
 Reflecting on these, it becomes clear that the set of isomorphisms become identities and effectively we get equivalences `for free'. 
 
 \section{Multiset Container in HoTT}
-With the above in mind, it is now possible to define a multiset container without issue. We do so using a higher inductive type (see \textbf{4.2.5}):\\
+With the above in mind, it is now possible to define a multiset container without issue. We do so using a higher inductive type (see \textbf{4.2.5}) defined by Thorsten Altenkirch\cite{lyon}:\\
 \\
 $Con_{Multiset} = (S_M \rhd P_M)$ such that 
 \begin{center}
@@ -652,8 +652,16 @@ $P_M(\epsilon(\alpha)) = transport(Fin, \alpha)$\\
 \subsection{The derivative of a multiset is a multiset}
 Given $(S_M \rhd P_M)$ as above,
 \begin{center}
-s
+$\delta (S_M \rhd P_M)$\\
+$= (\Sigma e(n) : S_M . i : P_M (n)) \rhd (P_M (n) -i)$\\
+$= S_M \rhd P_M (n)$
 \end{center}
+
+\chapter{Formalisation in Agda}
+
+
+
+
 
 \part{Conclusions}
 
@@ -662,6 +670,8 @@ s
 \chapter{Conclusion}
 
 \chapter{Further Work}
+
+
 
 \cleardoublepage
 \phantomsection
@@ -743,5 +753,31 @@ s
 \addcontentsline{toc}{chapter}{Appendix}
 
 \chapter{Appendix}
+\section{Ordinary Containers in Agda and related}
+\begin{verbatim}
+record Container : Sets where
+               field
+                 S : Set
+                 P : S -> Set
+                 
+record Functor : Sets where
+               field
+                 obj : Set -> Set
+                 morp : (A , B : Set) -> (A -> B) -> (obj A -> obj B)                 
+
+record _->c_ {A , B : Container } : Set where
+               field
+                 shape : Shape A -> Shape B
+                 position : forall {s} 
+                 
+record NatTrans (F , G : Functor) : Sets
+               field
+                 fam : (A : Set) -> obj F A -> obj G A 
+                 nat : 
+                   f : A -> B                 
+
+\end{verbatim}
+\section{Agda Multiset Container}
+
 
 \end{document}
