@@ -1,4 +1,5 @@
 \documentclass[12pt]{report}
+\usepackage{etex}
 \usepackage[a4paper, top=3cm, bottom=3cm]{geometry}
 \usepackage[latin1]{inputenc}
 \usepackage{setspace}
@@ -18,6 +19,7 @@
 \usepackage{fixltx2e}
 \usepackage{hyperref}
 \usepackage{stmaryrd}
+\usepackage{dcpic,pictex}
 
 \fancypagestyle{plain} {
 	\fancyhf{}
@@ -506,6 +508,7 @@ $reverse:\Pi_{A:Set} List(A) \to List(A)$\\
 $reverse = \lambda n.n \rhd \lambda n,i.n-1$
 \end{center}
 
+\newpage
 These container morphisms give rise to natural transformations, morphisms of functors. Given containers $ (S \rhd P)$ and $ (T \rhd Q)$, and a container morphism $ (f , r) : (S \rhd P) \to (S \rhd P)$ we can define a natural transformation:
 \begin{center}
 $ \llbracket f,r\rrbracket : \llbracket S \rhd P\rrbracket \Rightarrow \llbracket T \rhd Q\rrbracket$ \\
@@ -582,7 +585,7 @@ Quotient containers are containers furnished with an equivalence relation. More 
  From this definition, it follows that all containers are degenerate quotient containers where $G(s)$, the set of isomorphisms, is the empty set. 
 
 \section{Extention}
-The extention of a quotient container $S \rhd P/G$ is a functor:
+The extention of a quotient container $(S \rhd P)/G$ is a functor:
 \begin{center}
 $T_{S \rhd P/G} : Set \rightarrow Set$\\
 $T_{S \rhd P/G}(x) = \Sigma s:S.(P(s) \rightarrow X)/\sim_{s}$, such that\\
@@ -592,18 +595,64 @@ $\sim_{s}$ is the equivalence relation on the set of functions $P(s) \rightarrow
 $f \sim f'$ iff $\exists g \in G(s)$ where $f' = f \circ g$
 \end{center}
 
-\chapter{fg}
+\chapter{Multisets}
+\section{Definition}
+Multisets are generalised notions of sets such that members can appear more than once. The number of times an element appears in a multiset is said to be the \textit{multiplicity} of that element. More formally, we can define a multiset as follows:
+\begin{center}
+$Multiset(X) : X \to \mathbb{N}$ 
+\end{center}
+That is, a multiset parameterised over a type \textit{X} when given $x:X$ will return its multiplicity. 
+\section{Multiset Container?}
+By taking all elements of a multiset and putting them into a list we obtain a representation of that multiset. However, these representations are not comparable as there is no inherent order to a multiset whereas a list is strictly ordered. Given a list representation of a multiset of size $n$, we must make $n!$ checks for equality in order to check all permutations of the list. With this in mind, it becomes clear that a bijection exists between multisets and lists, quotiented by permutations. In other words:
+\begin{center}
+$Multiset(A) = List(A)/\sim$ such that:\\
+$x \sim y$ iff $x$ is a permutation of $y$
+\end{center}
+Hence, it is possible to define a quotient container: $(S \rhd P)/Q$ where $(S \rhd P)$ is the List container and for $n:\mathbb{N}$, $Q(n)$ is the set of isomorphisms on $Fin(n)$.
+
+\pagebreak
+ However, it has been shown that containers always preserve pullbacks\cite{ghani1}\footnote{
+A pullback $P$ of morphisms $f,g$ in the commutative diagram:
+\begin{center}
+\includegraphics[scale=0.6]{pullback.png}
+\end{center}
+is given by $P = \Sigma y:Y\Sigma x:X (f(x)=g(y))$
+}
+, but this representation of multiset containers do not\cite{lyon}. Thus, it is not possible to represent a multiset as a container in conventional type theory.\\
+\\
+However...
+
+\chapter{In Homotopy Type Theory, Quotient Containers become ordinary Containers}
+In Homotopy type theory, if we allow the Shapes of a container to be an arbitrary type and do not restrict it to a set, quotient containers become ordinary containers. \\
+\\
+We now briefly recap on two important points:
+\begin{enumerate}
+\item Homotopy type theory utilises Voevodsky's \textit{univalence axiom} (see \textbf{4.1}) as the basis of its \textit{structural identity principle} and a homotopy theoretic interpretation of identity is that \textit{isomorphic structures can be identified}.
+
+\item A quotient container is a pair consisting of a container $(S \rhd P)$ and a set of isomorphisms (G(s)).
+\end{enumerate}
+Reflecting on these, it becomes clear that the set of isomorphisms become identities and effectively we get equivalences `for free'. 
+
+\section{Multiset Container in HoTT}
+With the above in mind, it is now possible to define a multiset container without issue. We do so using a higher inductive type (see \textbf{4.2.5}):\\
+\\
+$Con_{Multiset} = (S_M \rhd P_M)$ such that 
 \begin{center}
 $S_M : Type_1$\\
 $e : \mathbb{N} \to S_M$\\
 $\epsilon : Fin(m) = Fin(n) \to e(m) = e(n) $\\
 \end{center}
-And family:
+and
 \begin{center}
 $P_M : S_M \to Set$\\
 $P_M(e(n)) = Fin(n)$\\
 $P_M(\epsilon(\alpha)) = transport(Fin, \alpha)$\\
 
+\end{center}
+\subsection{The derivative of a multiset is a multiset}
+Given $(S_M \rhd P_M)$ as above,
+\begin{center}
+s
 \end{center}
 
 \part{Conclusions}
@@ -652,17 +701,29 @@ $P_M(\epsilon(\alpha)) = transport(Fin, \alpha)$\\
 
 \bibitem{hott3}
   Hakon Robbestad Gylterud,
-  \emph{Symmetric Containers (MSc Thesis)}.
+  \emph{Symmetric Containers (MSc Thesis)},
   2005.
   
 \bibitem{icont}
   Thorsten Altenkirch, Peter Morris,
-  \emph{Indexed Containers}
+  \emph{Indexed Containers},
+  2009.
+  
+\bibitem{ghani1}
+  Neil Ghani, Robert Atkey, Patricia Johann,
+  \emph{When is a Type Refinement an Inductive Type?},
+  Foundations of Software Science and Comnputation Structures,
+  2011.
   
 \bibitem{;luhg;}
   Thorsten Altenkirch, Paul Levy, Sam Staton,
   \emph{Higher Order Containers}
   2010.
+  
+\bibitem{lyon}
+  Thorsten Altenkirch,
+  \emph{Containers in Homotopy Type Theory},
+  http://www.cs.nott.ac.uk/~txa/talks/lyon14.pdf
   
 \bibitem{hott4}
   http://homotopytypetheory.org/
