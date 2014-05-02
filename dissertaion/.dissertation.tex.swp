@@ -115,7 +115,7 @@ Special thanks go to Nicolai Kraus and Ambrus Kaposi of the Functional Programmi
 Samuel Ballance for ``all of [his] support, both emotional and structural".
 \\
 \\
-Also, Ted, Sam, India and Standard.
+Also, Ted, Mikey, Sam, India and Standard.
 
 \part{Introduction, Preliminaries and Meta-Comment}
 \chapter{Project Overview}
@@ -130,7 +130,7 @@ The notion of containers was then generalised in 2005 by Altenkirch and Morris\c
 \\
 This project would see a formalisation and exploration of \textit{quotient containers} building on the above and adding to the container family while exploring their usage in Homotopy type theory --- a new branch of mathematics developed by The Univalent Foundations Program at The Institute for Advanced Study, Princeton during 2013.\\
 \\
-The undertaking of this project not only allows me to work within well established fields of study such as type theory and category theory, utilising the work of influential academics but also affords me the opportunity to explore and research a nascent and bleeding edge are of theoretical computer science --- an opportunity which I relish.\\
+The undertaking of this project not only allows me to work within well established fields of study such as type theory and category theory, utilising the work of influential academics but also affords me the opportunity to explore and research a nascent and bleeding edge are of theoretical computer science.\\
 \\
 A successful project will also have applications in a number of ways. A sound implementation of multisets in Agda could potentially be appended to the Agda Homotopy type theory library, providing a resource for further research. In addition, it adds more documentation to a young branch of mathematics and has potential implications in other fields such as datatype-generic programming.
 
@@ -269,12 +269,15 @@ There exists $ x : A$ such that $P(x)$ is true & $\sum_{x : A}P(x)$\\
 
 \chapter{Agda}
 \section{Introduction}
-Agda is both a programming language and proof assistant based on Martin-L\"of Type Theory (See \textbf{Chapter 2}). Developed by Ulf Norell at Chalmers University of Technology, Agda has dependent types and Haskell inspired syntax. Among its other major features are MLTT's logical framework and universes, implicit arguments, and support for coinductive data types. Agda compiles via Haskell and has a powerful emacs interface that can allow the programmer to type check an unfinished program and use tactics and holes to procure useful information on how to complete missing parts. Agda also has support for unicode characters and mixfix operators. There are a number of benefits in using Agda, including the elimination of errors at runtime, the ability to program with types as data and automatic proof checking as well as all the usual benefits of using a statically typed functional programming language. \\
+Agda is both a programming language and proof assistant based on Martin-L\"of Type Theory (See \textbf{Chapter 2}). Developed by Ulf Norell at Chalmers University of Technology, Agda has dependent types and Haskell inspired syntax. Among its other major features are MLTT's logical framework and universes, implicit arguments, and support for coinductive data types. Agda compiles via Haskell and has a powerful emacs interface that can allow the programmer to type check an unfinished program and use tactics and holes to procure useful information on how to complete missing parts. Agda also has support for unicode characters and mixfix operators.\\
+\\
+There are a number of benefits in using Agda, including the elimination of errors at runtime, the ability to program with types as data and automatic proof checking as well as all the usual benefits of using a statically typed functional programming language. \\
 \\
 As part of the \textit{Univalent Foundations Program}, a Homotopy type theory and univalent foundations library was developed in Agda to provide key tools in HoTT to programmers\cite{hottagda}. \\
 \\
 Agda is used throughout this document and a primary aim of this project is to produce a piece of Agda code. As such, this chapter will serve as a brief overview of and introduction to Agda through a number of worked examples.
 
+\newpage
 \section{Type Declarations}
 One of the simplest types we can define is Bool. In Agda, this is defined:
 \begin{verbatim}
@@ -634,7 +637,7 @@ We now briefly recap on two important points:
 Reflecting on these, it becomes clear that the set of isomorphisms become identities and effectively we get equivalences `for free'. 
 
 \section{Multiset Container in HoTT}
-With the above in mind, it is now possible to define a multiset container without issue. We do so using a higher inductive type (see \textbf{4.2.5}) defined by Thorsten Altenkirch\cite{lyon}:\\
+With the above in mind, it is now possible to define a multiset container without issue. We do so using a higher inductive type\cite{lyon} (see \textbf{4.2.5}):\\
 \\
 $Con_{Multiset} = (S_M \rhd P_M)$ such that 
 \begin{center}
@@ -656,16 +659,57 @@ $\delta (S_M \rhd P_M)$\\
 $= (\Sigma e(n) : S_M . i : P_M (n)) \rhd (P_M (n) -i)$\\
 $= S_M \rhd P_M (n)$
 \end{center}
-
+Thus, $\delta (S_M \rhd P_M) = (S_M \rhd P_M)$.
 \chapter{Formalisation in Agda}
-
-
+The implementation of multiset containers used in this project is slightly different from the definition used in \textbf{Chapter 9}. The definition is as follows:\\
+\\
+\-\hspace{3cm}\texttt{data Sym (n : Nat)}\\
+\-\hspace{4cm}\texttt{* : Sym n}\\
+\-\hspace{4cm}\texttt{p : (Fin n} $\simeq$ \texttt{Fin n)} $\to$ \texttt{* = *}\\
+\-\hspace{4cm}\texttt{tr : (f\textsubscript{1} , f\textsubscript{2} : Fin n} $\simeq$ \texttt{Fin n)}\\
+\-\hspace{5.3cm}$\to$ \texttt{p (f\textsubscript{1}} $\circ$ \texttt{f\textsubscript{2}) = (p f\textsubscript{1})}$\circ$\texttt{(p f\textsubscript{2})}\\
+\-\hspace{4cm}\texttt{h : is-1-type(Sym n)}\\
+\\
+\-\hspace{4cm}\texttt{P n : Sym n} $\to$ \texttt{Type of 0-Types}\\
+\-\hspace{4cm}\texttt{P n (*) = Fin n}\\
+\-\hspace{4cm}\texttt{P n (p(f)) = univalence f}\\
+\\
+This implementation sees the definition of a type \texttt{Sym n} which corresponds to the symmetric (permutation) group on the n-element set and acts as the shape type of the construction. The full Agda code is of the form:\\
+\\
+\-\hspace{3cm}\texttt{module Sym (n : Nat)}\\
+\-\hspace{4cm}\texttt{* : Sym}\\
+\\
+\-\hspace{4cm}\texttt{postulate}\\
+\-\hspace{5cm}\texttt{p : (Fin n} $\simeq$ \texttt{Fin n)} $\to$ \texttt{* = *}\\
+\-\hspace{5cm}\texttt{tr : (f\textsubscript{1} , f\textsubscript{2} : Fin n} $\simeq$ \texttt{Fin n)}\\
+\-\hspace{6.3cm}$\to$ \texttt{p (f\textsubscript{1}} $\circ$ \texttt{f\textsubscript{2}) = (p f\textsubscript{1})}$\circ$\texttt{(p f\textsubscript{2})}\\
+\-\hspace{5cm}\texttt{h : is-1-type(Sym n)}\\
+\newpage
+\-\hspace{1.5cm}\texttt{module Sym-Recursor (n : Nat) \{i\} (A : Type i)}\\
+\-\hspace{3cm}\texttt{(base : A)(loops :(Fin n} $\simeq$ \texttt{Fin n)} $\to$ \texttt{(base = base))}\\
+\-\hspace{3cm}\texttt{(comp-loops : (f\textsubscript{1} f\textsubscript{2} : Fin n} $\simeq$ \texttt{Fin n)} $\to$\\
+\-\hspace{4.16cm} \texttt{loops (f\textsubscript{2}} $\circ$  \texttt{f\textsubscript{1}) == (loops f\textsubscript{1})}$\circ$\texttt{(loops f\textsubscript{2}))}\\
+\-\hspace{3cm}\texttt{(h : has-level (S (0)) A)}\\
+\\
+\-\hspace{2cm}\texttt{module Pos (n : Nat) where}\\
+\-\hspace{3.2cm}\texttt{paths : Fin n} $\simeq$  \texttt{Fin n } $\to$\\
+\-\hspace{4.2cm}\texttt{(Fin n , fin-is-set n) == (Fin n , fin-is-set n)}\\
+\-\hspace{3.2cm}\texttt{p-trans : (f\textsubscript{1} f\textsubscript{2} : Fin n } $\simeq$ \texttt{ Fin n) } $\to$\\
+\-\hspace{4.2cm} \texttt{paths (f\textsubscript{2}}$\circ$\texttt{f\textsubscript{1}) = paths f\textsubscript{1} }$\circ$\texttt{ paths f\textsubscript{2}}\\
+\\
+Here, we do not define the eliminator as it is sufficient to define the recursor.\\
+\\
+The full Agda code can be found in the Appendix (\textbf{14.2}).
 
 
 
 \part{Conclusions}
-
 \chapter{Evaluation}
+\section{Project Evaluation}
+
+
+\section{Personal Reflection}
+
 
 \chapter{Conclusion}
 
