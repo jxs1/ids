@@ -87,6 +87,7 @@ module _ (n : ℕ) where
 
   data Sym : Set where
     * : Sym
+
 -}
 
 

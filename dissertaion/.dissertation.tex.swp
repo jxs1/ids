@@ -706,15 +706,21 @@ The full Agda code can be found in the Appendix (\textbf{14.2}).
 \part{Conclusions}
 \chapter{Evaluation}
 \section{Project Evaluation}
-
+The primary aim of this project was to produce an Agda implementation of multiset containers in Homotopy type theory. Secondarily to this was to explore and understand the fields of Containers and Homotopy type theory. With these in mind, it is my belief that this project has been successful. This said, there are a number of ways in which it could have been improved. Primarily, given additional time, I would wish to formalise the differentiation of multisets in Agda, a goal that initially planned to achieve before realising the hitherto unappreciated complexities of Agda and my quotient container implementation. Otherwise, I believe I have completed the project successfully. Secondly, there is also scope for performing additional research in other areas related to Homotopy type theory. For example, out of personal interest, I would like to look into and document topos theoretic interpretations of homotopy type theory. However, with a branch of mathematics with such far reaching implications in diverse subjects like Homotopy type theory, there will always be room for more research.
 
 \section{Personal Reflection}
-
-
-\chapter{Conclusion}
+I have learned a great deal during the undertaking of this project --- compounding existing knowledge of type theory and category theory while performing research in a fascinating and still blossoming area of mathematics and theoretical computer science. I have found this research very engaging and have developed a genuine interest for the subject.\\
+\\
+As touched on in the evaluation, I perhaps underestimated the time it would take to write my implementation. Despite being familiar with both type theory and functional programming, I found using Agda rather challenging initially. Completing this project has significantly improved my Agda skills. Not only this, but I have improved on invaluable skills such as time management, technical writing and task planning.\\
+\\
+Overall, I have found this project interesting and rewarding and I believe I have completed it succesfully.
 
 \chapter{Further Work}
-
+Naturally, the first instance of further work that could be completed is formalising the differentiation of a multiset in Agda. \\
+\\
+In the field of differentiating containers, Gylterud asked whether anti-derivatives of containers exist, observing that when relying on the Shapes of a container to be a set, in general, there are no anti-derivatives. With this in mind, it may be of interest to explore the anti-derivatives of quotient containers.\\
+\\
+In addition to these, there are a great deal of open problems in Homotopy type theory such as formalising  $\infty$-Groupoids in HoTT or constructing HIRTs --- higher inductive-recursive types. 
 
 
 \cleardoublepage
