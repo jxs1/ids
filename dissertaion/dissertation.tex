@@ -132,12 +132,14 @@ This project would see a formalisation and exploration of \textit{quotient conta
 \\
 The undertaking of this project not only allows me to work within well established fields of study such as type theory and category theory, utilising the work of influential academics but also affords me the opportunity to explore and research a nascent and bleeding edge are of theoretical computer science.\\
 \\
-A successful project will also have applications in a number of ways. A sound implementation of multisets in Agda could potentially be appended to the Agda Homotopy type theory library, providing a resource for further research. In addition, it adds more documentation to a young branch of mathematics and has potential implications in other fields such as datatype-generic programming.
+A successful project will also have applications in a number of ways. A sound implementation of multisets in Agda could potentially be appended to the Agda Homotopy type theory library, providing a resource for further research. In addition, it adds more documentation to a young branch of mathematics and has potential implications in other fields such as datatype-generic programming.\\
+\\
+Further background is given in the relevant sections in \textbf{Part II}.
 
 
 \section{Description of Work}
 
-\subsection{Aims and Objectives}
+\subsection*{Aims and Objectives}
 The initial aims and objectives that were outlined in my project proposal were as follows:
 \begin{itemize}
 \item To research and understand Homotopy Type Theory
@@ -150,6 +152,12 @@ The initial aims and objectives that were outlined in my project proposal were a
 While these aims remain largely valid, as the project has progressed my aims have become more focussed and less diffuse. Keeping the above strongly in mind, the primary aim of this project is to produce an Agda implementation of a multiset container in homotopy type theory. Secondarily, this  written work serves to evidence the research and understanding necessary to produce such an implementation while acting as a suitable introduction to key concepts in the subject area.\\
 \\
 Given the abstract and theory oriented nature of the project it is difficult to give concrete aims and objectives to the code produced other than that it should be well written and fit for purpose. The code should also be written with an eye on ease of maintainability and extensibility. 
+
+\subsection*{Work Accomplished}
+While a full implementation of multiset Containers in Homotopy Type theory would have been ideal, over the course of the project it became apparent that this would be very much beyond the scope of an undergraduate dissertation.\\
+\\
+However, this document presents a large step in fully implementing multiset Containers in HoTT, leaving only a few holes in need of completion. These holes require detailed knowledge and deeper understanding of the nuances of Agda and the HoTT Agda library that was simply infeasible to garner within the time constraints. The structure of and main idea behind the higher inductive type is present and a reasonable proportion of the proof is complete, but the remainder is left to be implemented.
+
 
 \section{Structure of Report}
 This section serves to introduce the layout and organisation of the rest of the document. The understanding of my project requires a background knowledge in a number of different areas. \textbf{Part II} (Chapter 2 through 6) aims to cover those key areas and provide the reader with enough information for the subsequent part. \textbf{Part II} also presents an exposition and summary of some of the research performed during the project. \textbf{Part III} is an overview of my implementation and discusses the novelties and usage of quotient containers in homotopy type theory. The document concludes with \textbf{Part IV} which summarises the achievements of the project and gives a critical appraisal and personal reflection of the work. Finally, Chapter 10 discusses further work that could be performed in the area. 
@@ -184,7 +192,7 @@ $\Gamma \vdash a:A$ & \textit{a} is well-formed term of the type \textit{A} in t
 
 
 \section{Type Connectives}
-\subsection{Finite Types}
+\subsection*{Finite Types}
 Finite types are those that have a strictly finite, enumerable number of inhabitants. Examples include:
 \begin{itemize}
 \item the \textbf{0}-type. Otherwise known as the \textit{empty} or \textit{bottom} type, it has no inhabitants and invoking the Curry-Howard isomorphism\footnote{
@@ -196,14 +204,14 @@ Discovered by Haskell Curry and William Alvin Howard, the Curry-Howard isomorphi
 \item the \textbf{2}-type. Intended to have exactly two inhabitants: $0_\textbf{2}$ and $1_\textbf{2}$, it could be constructed as \textbf{1} + \textbf{1}. This is the type of Booleans.
 \end{itemize}
 
-\subsection{Product Types}
-Given types $A,B : \mathcal{U}$, $A \times B : \mathcal{U}$ is the type of their cartesian product where elements of $A \times B$ are pairs $(a,b) : A \times B$ such that $a : A$ and $b : B$. 
+\subsection*{Product Types}
+Given types $A,B : \mathcal{U}$, $A \times B : \mathcal{U}$ is the type of their cartesian product where elements of $A \times B$ are pairs $(a,b) : A \times B$ such that $a : A$ and $b : B$. Invoking the Curry-Howard isomorphism, product types represent the logical conjunction of two operands.
 
-\subsection{Coproduct Types}
-Given types $A,B : \mathcal{U}$, $A + B : \mathcal{U}$ is the type of their coproduct. Inhabitants of $A + B$ can be constructed with \texttt{inl(a)} : $A + B$ for $a : A$ or \texttt{inr(b)} : $A + B$ for $b : B$.
+\subsection*{Coproduct Types}
+Given types $A,B : \mathcal{U}$, $A + B : \mathcal{U}$ is the type of their coproduct. Inhabitants of $A + B$ can be constructed with \texttt{inl(a)} : $A + B$ for $a : A$ or \texttt{inr(b)} : $A + B$ for $b : B$. Invoking the Curry-Howard isomorphism, product types represent the logical disjunction of two operands.
 
 
-\subsection{$\Pi$-Types}
+\subsection*{$\Pi$-Types}
 $\Pi$-types, also known as dependent product type, is a type whose inhabitants are functions whose codomain is dependent on the domain to which the function is applied. It can be regarded as the cartesian product over a type.\\
 Given a type \textit{A} : $\mathcal{U}$ and a family \textit{B} : \textit{A} $\rightarrow$ $\mathcal{U}$, we can construct the type of dependent functions:
 \begin{center}
@@ -217,7 +225,7 @@ $ \prod_{(A:\mathcal{U})}^{} A \rightarrow B $
 Invoking the Curry-Howard isomorphism, $\Pi$-types represent implication and universal quantification.
 
 
-\subsection{$\Sigma$-Types}
+\subsection*{$\Sigma$-Types}
 $\Sigma$-types, or dependent pair types, are types where the latter component of a pair depends on the former. It is analogous to an indexed sum over a given type. 
 Given a type \textit{A} : $\mathcal{U}$ and a family \textit{B} : \textit{A} $\rightarrow$ $\mathcal{U}$, we can construct the type of dependent pair functions:
 \begin{center}
@@ -225,20 +233,20 @@ $ \sum_{(x:A)}^{} B(x) : \mathcal{U} $
 \end{center}
 For a constant family \textit{B}, this is judgementally equal to the cartesian product type: ($A \times B$).
 Invoking the Curry-Howard isomorphism, $\Sigma$-types represent conjunction and existential quantification.
-\subsection{Identity Types}
+\subsection*{Identity Types}
 Identity or equality types are of the form $a =_A b$ such that $a : A$ and $b : A$. Given a type $A : \mathcal{U}$ and elements $a,b : A$ we can form type $a =_A b : \mathcal{U}$ in the same universe. There is only one inhabitant of this type --- the proof of reflexivity:
 \begin{center}
  \texttt{refl} : $\prod_{(a:A)}^{} (a =_A a) $
 \end{center}
 \texttt{refl} states that all elements in \textit{A} are equal to themselves. This means that if \textit{a} and \textit{b} are judgementally equal, we also have a witness of \texttt{refl},  \texttt{refl\textsubscript{a}} : $(a =_A b)$.
-\subsection{Inductive Types}
+\subsection*{Inductive Types}
 Inductive types are those that includes a constructor that encodes how to create new elements of the type. Normally, there will be a base case and an inductive case. A good example of this is an inductive definition of the natural numbers. Elements of type $\mathbb{N} : \mathcal{U} $ are constructed with $0 : \mathbb{N} $ and $successor : \mathbb{N} \rightarrow \mathbb{N}$.
-\subsection{Universes}
+\subsection*{Universes}
 A universe, $\mathcal{U}$, is a type whose elements are types. To avoid Russell's paradox\footnote{
-In 1901, Bertrand Russell used this paradox to derive a contradiction in Cantor's naive set theory. The paradox is as follows: "Let R be the set of all sets which are not members of themselves. Then R is neither a member of itself nor not a member of itself."\cite{rp} Type theory was introduced by Russell as a solution to this problem.
+In 1901, Bertrand Russell used this paradox to derive a contradiction in Cantor's na\"ive set theory. The paradox is as follows: ``Let R be the set of all sets which are not members of themselves. Then R is neither a member of itself nor not a member of itself."\cite{rp} Type theory was introduced by Russell as a solution to this problem.
 }, universes are ordered in a heirarchy. That is, $\mathcal{U}_0 : \mathcal{U}_1$, $ \mathcal{U}_1 : \mathcal{U}_2$... Universes are \textit{cumulative}, meaning all elements of the $i^{th}$ universe are also elements of the $(i+1)^{th}$ universe. When we declare a type, we say implicitly that it inhabits some universe $\mathcal{U}_i$.
 
-\subsection{Propositions as Types}
+\subsection*{Propositions as Types}
 Using the types above, it is possible to construct types that represent logical propositions, that is, logical sentences with a truth value, as such:
 \begin{center}
 \begin{tabular}{|c|c|}
@@ -292,7 +300,7 @@ This definition states the following:
 \item The type Bool is a set
 \item The type Bool has two constructors: \begin{enumerate} \item true \item false \end{enumerate}
 \item The type Bool has no other constructors
-\item true in bool is not equal to false in bool
+\item true in the type bool is not equal to false in the type bool
 \end{itemize}
 
 \subsection{Inductive Types}
@@ -315,7 +323,7 @@ Simple functions are defined in a very similar manner to Haskell. Here we define
             map f [] = []
             map f (x :: xs) = f x :: map f xs        
 \end{verbatim}
-These functions show various aspects of Agda's syntax. The \texttt{if\_then\_else} is exhaustively defined and uses pattern matching on wildcards (\_) while \texttt{map} is a good example of a polymorphic function that utilises recursion and pattern matches on more complex arguments, namely a list matched by \texttt{x} --- the head of a list; the cons operator (\_::\_) and \texttt{xs} --- the tail of the list.
+These functions show various aspects of Agda's syntax. The \texttt{if\_then\_else} a parametricly polymorphic function that  is exhaustively defined and makes use of pattern matching on wildcards(\_) while \texttt{map} is a good example of a polymorphic function that utilises recursion and pattern matches on more complex arguments, namely a list matched by \texttt{x} --- the head of a list; the cons operator (\_::\_) and \texttt{xs} --- the tail of the list.
 
 \section{Dependently typed functions}
 Given the dependent type of finite sets, defined as an inductive family as follows:
@@ -348,8 +356,8 @@ The interpretation of types as structured objects also means that it is possible
 \pagebreak
 
 \section{Key Concepts in Homotopy Type Theory}
-The fundamental idea behind homotopy type theory is the marriage between Martin-L\"of type theory and homotopical notions. The following uses the languages of type theory, category theory and homotopy theory to present concepts in Homotopy type theory. 
-\subsection{Types and their Inhabitants}
+The fundamental idea behind homotopy type theory is the marriage between Martin-L\"of type theory and homotopical notions. The following uses the languages of mathematics, type theory, category theory and homotopy theory to present concepts in Homotopy type theory. 
+\subsection*{Types and their Inhabitants}
 \subsubsection{Types as spaces}
 In a homotopical interpretation, types are regarded as topological spaces and terms of a type are represented by points in a space.
 \subsubsection{Types as $\infty$-Groupoids}
@@ -363,7 +371,7 @@ In homotopy theory, every space has a \textit{fundamental $\infty$-groupoid} who
 
 This structure is analogous to continuous paths of a space and the homotopies between them, in other words, an $\infty$-groupoid. This groupoid model of Martin-L\"of type theory has far reaching implications in higher category theory as groupoids can be modelled as small categories in which all morphisms are isomorphic.
 
-\subsection{Equality}
+\subsection*{Equality}
 Given the above, it is consistent to interpret identity types as paths. Thus, for an element $p : a =_A b$, a path $ p : a \leadsto b $ is said to exist between a and b in the space of A. For two elements of the same identity type i.e. for $p,q : a =_A b$, paths are said to be parallel as they have the same start and end points. Thus, it follows that an element of the type $c =_{(a =_A b)} d$ represents a homotopy --- or a morphism between morphisms. This can also be thought of as a 2-dimensional path in \textit{A}. Similarly, the next iteration, the type of identifications between identifications between identifications can be thought of as a 3-dimensional path or a morphism between morphisms between morphisms.
 \begin{center}
 \includegraphics[scale=0.5]{./2.png}\\
@@ -371,16 +379,16 @@ Given the above, it is consistent to interpret identity types as paths. Thus, fo
 \end{center}
 In the image above, $\gamma_0, \gamma_1$ could be considered of the type $x = y$ for some space.
 
-\subsection{Functions}
+\subsection*{Functions}
 Functions are represented by continuous mappings between spaces. For example, a function $f : A \rightarrow B$ represents a continuous mapping from space \textit{A} to space \textit{B}. Functions can be identified if they are homotopic.
 
 Functions also behave functorially on paths, that is, all functions are continuous and preserve paths.
 
 
-\subsection{Dependent types}
-Dependent types are represented by a fibration - a mapping from a base space to a total space.
+\subsection*{Dependent types}
+Dependent types are represented by a fibration - a mapping from a base space to a total space. Fibrations are continuous maps that satisfy the \textit{homotopy lifting property}, that is, a homotopy (or path) that occurs in the base space can be lifted to the total space.
 
-\subsection{Higher Inductive Types}
+\subsection*{Higher Inductive Types}
 Inductive types are those that include instructions on how to produce elements of the type within its definition. The classical example of an inductive type is the type of natural numbers, \textit{nat} or $\mathbb{N}$. In agda, the definition of \textit{nat} is as follows:\\
 \begin{verbatim}
                   data nat  : Set where
@@ -429,7 +437,7 @@ $ \prod_{(x:A)}^{} B(x) $ & $\forall x:A, B(x) $ & product & space of sections\\
 
 \chapter{Containers}
 \section{Introduction}
-The notion of Containers was first introduced in 2003 by Abbot, Altenkirch and Ghani\cite{coc} as a `template' with which many data types can be modelled. The fundamental idea of a container is that a datatype can be represented with a pair consisting of a set of \textit{\textbf{Shapes}} and a family of \textit{\textbf{Positions}}. The set of \textit{shapes} provides a description of the structure of the type and the \textit{positions} are mappings from positions in the shape to individual points of data. This can be visualised as below:
+The notion of Containers was first introduced in 2003 by Abbot, Altenkirch and Ghani\cite{coc} as a common `template' with which many data types can be modelled. The fundamental idea of a container is that a data type can be represented with a pair consisting of a set of \textit{\textbf{Shapes}} and a family of \textit{\textbf{Positions}}. The set of \textit{shapes} provides a description of the structure of the type and the \textit{positions} are mappings from positions in the shape to individual points of data. This can be visualised as below:
 \begin{center}
 \includegraphics[scale=0.65]{4.png}
 \end{center}
@@ -441,7 +449,7 @@ A unary container is defined as a pair $ (S \rhd P) $ where:
 \item $P : Set \to Set$ and for $s : S$, elements of $P(s)$ are the \textit{positions} of \textit{s}.
 \end{enumerate}
 
-\subsection{List Container}
+\subsection*{List Container}
 As an example, we define a list container, $Con_{List}$ for conventional lists over a type \textit{A}:
 \begin{center}
 $ L(A) \simeq 1 + A \times L(A) $
@@ -452,11 +460,11 @@ or in Agda:
                       Nil : List A
                       Cons : A -> List A -> List A
 \end{verbatim}
- $Con_{List} = (S \rhd P) $ such that \textit{S}, the set of shapes, is $\mathbb{N}$, the set of natural numbers and \textit{P}, the family of positions is $Fin(-)$. The functor $\llbracket Con_{List} \rrbracket$ maps a set to the set of finite sequences in A.
+ $Con_{List} = (S \rhd P) $ such that \textit{S}, the set of shapes, is $\mathbb{N}$, the set of natural numbers and \textit{P}, the family of positions is $Fin(-)$. The functor $\llbracket Con_{List} \rrbracket$ is interpreted as a map from a set to the set of finite sequences in A.
 
 \section{Operations on Containers}
-\subsection{Product Containers}
-Given two containers $(S \rhd P)$ and $ (T \rhd Q)$, a product container is defined:
+\subsection*{Product Containers}
+Given two containers $(S \rhd P)$ and $ (T \rhd Q)$, a product container is defined as:
 \begin{center}
 $(S \rhd P) \times (T \rhd Q) = (s,t): (S \times T) \rhd (P(s) + Q(t))$
 \end{center}
@@ -465,20 +473,21 @@ Interpretation:
 $\llbracket (S \rhd P) \times (T \rhd Q) \rrbracket (A)= \llbracket(S \rhd P) \rrbracket (A) \times \llbracket (T \rhd Q) \rrbracket (A)$
 \end{center}
 
-\subsection{Coproduct Containers}
-Given two containers $(S \rhd P)$ and $ (T \rhd Q)$, a coproduct container is defined:
+\subsection*{Coproduct Containers}
+Given two containers $(S \rhd P)$ and $ (T \rhd Q)$, a coproduct container is defined as:
 \begin{center}
 $(S \rhd P) + (T \rhd Q) = (x:S + T) \rhd $(\texttt{if (x = inl(s) then} \textit{P(s)} \texttt{else}$\dagger$ \textit{Q(t)} \texttt{)})
 \end{center}
-$\dagger$ The else branch implicitly means that \texttt{x = inr(t)}.
+$\dagger$ The else branch implicitly means that \texttt{x} must \texttt{= inr(t)}.\\
+\\
 Interpretation:
 \begin{center}
 $\llbracket (S \rhd P) + (T \rhd Q) \rrbracket (A)= \llbracket(S \rhd P) \rrbracket (A) + \llbracket (T \rhd Q) \rrbracket (A)$
 \end{center}
 
 
-\subsection{Composite Containers}
-Given two containers $(S \rhd P)$ and $ (T \rhd Q)$, a composite container is defined:
+\subsection*{Composite Containers}
+Given two containers $(S \rhd P)$ and $ (T \rhd Q)$, a composite container is defined as:
 \begin{center}
 $(S \rhd P) \circ (T \rhd Q) = (\Sigma s:S,f:P(s) \to T) \rhd (\Sigma p:P(s).Q(f(p))))$
 \end{center}
@@ -542,16 +551,17 @@ We may picture this as:
 It is worth comparing the rule for differentiating this type $F$ with the product rule from classical, differential calculus:
 \begin{center}
 $\delta F \simeq \delta F_{1} \times F_{2} + F_{1} \times \delta F_{2} $\\
-c.f.\\
+c.f.
+\\
 $\frac{d}{dx} (u \cdot v)= \frac{dv}{dx} \cdot u + v \cdot \frac{du}{dx}$
 \end{center} 
-On observation, it would appear that these are analogous. Indeed they are and all usual rules and laws of differential calculus such as the chain rule, product rule, et cetera apply to all parametric type contructors. This is fully investigated in Abbot, 2003\cite{coc}.
+On observation, it would appear that these are analogous. Indeed they are and all usual rules and laws of differential calculus such as the chain rule, product rule, et cetera, apply to all parametric type constructors. This is fully investigated in Abbot, 2003\cite{coc}.
 \subsection{Differentiation of a List}
 By way of additional example for further illumination, we differentiate a list. Given the list functor,
 \begin{center}
 $L(X) \simeq 1 + X \times L(X)$,
 \end{center} 
-we may think of its type of one hole contexts to be the type where a hole is placed at an arbitrary position in a non-empty list. A list with a hole placed in the centre would give us two equally sized lists, while edge cases, in the form of holes at the head and tail of the list, would yeild a non-empty list and an empty list. Thus, our intuition tells us that the differential of a list is two lists. More formally, this is expressed as:
+we may think of its type of one hole contexts to be the type where a hole is placed at an arbitrary position in a non-empty list. A list with a hole placed in the centre would give us two equally sized lists, while edge cases, in the form of holes at the head and tail of the list, would yeild a non-empty list and an empty list. Thus, our intuition tells us that the result of differentiating a list is two lists. More formally, this is expressed as:
 \begin{center}
 $\delta L(X) \simeq L(X) + X \times \delta L(X)$
 \end{center}
@@ -570,7 +580,7 @@ By way of example, we differentiate a list container. Given a list container \te
 \begin{center}
 $L = (S \rhd P)$ such that $S = \mathbb{N}, P = Fin(-)$,
 \end{center}
-As in \textbf{7.2}:
+As in \textbf{6.2}:
 \begin{center}
 $\delta(L) = \Sigma n : \mathbb{N}, p: Fin(n) \rhd \Sigma p' : Fin(n), p \neq p'$
 \end{center} 
@@ -578,19 +588,21 @@ This effectively splits the list, yielding
 \begin{center}
 $(m,n): \mathbb{N} \times \mathbb{N} \rhd Fin(n) + Fin(n)$,
 \end{center}
-a pair of lists $(m,n)$ such that m \texttt{++} n would give the original list. As such, $\delta(L) = (L \times L)$, which is what we would expect from differentiating a list as in \textbf{7.1.1}.
+a pair of lists $(m,n)$ such that m \texttt{++} n would give the original list. As such, $\delta(L) = (L \times L)$, which is what we would expect from differentiating a list as in \textbf{6.1.1}.
+
+
 
 \part{Quotient Containers in Homotopy Type Theory}
 \chapter{Quotient Containers}
 \section{Definition}
-Quotient containers are containers furnished with an equivalence relation. More formally, a quotient container $S \rhd P/G$ is defined as a container $S \rhd P$ and for each shape $s$ in $S$, a set of isomorphisms $G(s)$. This set of isomorphisms can be seen as some subgroup of the automorphism group of $P(s)$.
+Quotient containers are containers furnished with an equivalence relation. More formally, a quotient container $(S \rhd P)/G$ is defined as a container $(S \rhd P)$ and for each shape $s$ in $S$, a set of isomorphisms $G(s)$. This set of isomorphisms can be seen as some subgroup of the automorphism group of $P(s)$.
 
- From this definition, it follows that all containers are degenerate quotient containers where $G(s)$, the set of isomorphisms, is the empty set. 
+ From this definition, it follows that all containers are degenerate form of quotient containers such that $G(s)$, the set of isomorphisms, is the empty set. 
 
-\section{Extention}
-The extention of a quotient container $(S \rhd P)/G$ is a functor:
+\section{Extension}
+The extension of a quotient container $(S \rhd P)/G$ is a functor:
 \begin{center}
-$T_{S \rhd P/G} : Set \rightarrow Set$\\
+$T_{S \rhd P/G} : \text{Set} \rightarrow \text{Set}$\\
 $T_{S \rhd P/G}(x) = \Sigma s:S.(P(s) \rightarrow X)/\sim_{s}$, such that\\
 \end{center}
 $\sim_{s}$ is the equivalence relation on the set of functions $P(s) \rightarrow X$, such that
@@ -602,13 +614,13 @@ $f \sim f'$ iff $\exists g \in G(s)$ where $f' = f \circ g$
 \section{Definition}
 Multisets are generalised notions of sets such that members can appear more than once. The number of times an element appears in a multiset is said to be the \textit{multiplicity} of that element. More formally, we can define a multiset as follows:
 \begin{center}
-$Multiset(X) : X \to \mathbb{N}$ 
+$\text{Multiset}(X) : X \to \mathbb{N}$ 
 \end{center}
 That is, a multiset parameterised over a type \textit{X} when given $x:X$ will return its multiplicity. 
 \section{Multiset Container?}
 By taking all elements of a multiset and putting them into a list we obtain a representation of that multiset. However, these representations are not comparable as there is no inherent order to a multiset whereas a list is strictly ordered. Given a list representation of a multiset of size $n$, we must make $n!$ checks for equality in order to check all permutations of the list. With this in mind, it becomes clear that a bijection exists between multisets and lists, quotiented by permutations. In other words:
 \begin{center}
-$Multiset(A) = List(A)/\sim$ such that:\\
+$\text{Multiset}(A) = \text{List}(A)/\sim$ such that:\\
 $x \sim y$ iff $x$ is a permutation of $y$
 \end{center}
 Hence, it is possible to define a quotient container: $(S \rhd P)/Q$ where $(S \rhd P)$ is the List container and for $n:\mathbb{N}$, $Q(n)$ is the set of isomorphisms on $Fin(n)$.
@@ -621,7 +633,7 @@ A pullback $P$ of morphisms $f,g$ in the commutative diagram:
 \end{center}
 is given by $P = \Sigma y:Y\Sigma x:X (f(x)=g(y))$
 }
-, but this representation of multiset containers do not\cite{lyon}. Thus, it is not possible to represent a multiset as a container in conventional type theory.\\
+, but this representation of multiset containers does not\cite{lyon}. Thus, it is not possible to adequately represent a multiset as a container in conventional type theory.\\
 \\
 However...
 
@@ -637,19 +649,19 @@ We now briefly recap on two important points:
 Reflecting on these, it becomes clear that the set of isomorphisms become identities and effectively we get equivalences `for free'. 
 
 \section{Multiset Container in HoTT}
-With the above in mind, it is now possible to define a multiset container without issue. We do so using a higher inductive type\cite{lyon} (see \textbf{4.2.5}):\\
+With the above in mind, it is now possible to define a multiset container without issue. We do so using a higher inductive type\cite{lyon} (see \textbf{4.2}):\\
 \\
 $Con_{Multiset} = (S_M \rhd P_M)$ such that 
 \begin{center}
-$S_M : Type_1$\\
+$S_M : \text{Type}_1$\\
 $e : \mathbb{N} \to S_M$\\
-$\epsilon : Fin(m) = Fin(n) \to e(m) = e(n) $\\
+$\epsilon : \text{Fin}(m) = \text{Fin}(n) \to e(m) = e(n) $\\
 \end{center}
 and
 \begin{center}
-$P_M : S_M \to Set$\\
-$P_M(e(n)) = Fin(n)$\\
-$P_M(\epsilon(\alpha)) = transport(Fin, \alpha)$\\
+$P_M : S_M \to \text{Set}$\\
+$P_M(e(n)) = \text{Fin}(n)$\\
+$P_M(\epsilon(\alpha)) = \text{transport}(\text{Fin}, \alpha)$\\
 
 \end{center}
 \subsection{The derivative of a multiset is a multiset}
@@ -659,39 +671,77 @@ $\delta (S_M \rhd P_M)$\\
 $= (\Sigma e(n) : S_M . i : P_M (n)) \rhd (P_M (n) -i)$\\
 $= S_M \rhd P_M (n)$
 \end{center}
-Thus, $\delta (S_M \rhd P_M) = (S_M \rhd P_M)$.
+Thus, $\delta (S_M \rhd P_M) = (S_M \rhd P_M)$.\\
+\\
+The intuition here is that removing an element from a multiset does not alter its  structure in the same way as removing an element from a list. We may picture the differentiation of a multiset of size 5 as:\\
+\\
+
+\includegraphics[scale=0.8]{7.png}
+\\
+\\
+While an arbitrary element is removed, this removal has no bearing on the other elements as there is no strict ordering or structure as in a list. As such, the result of differentiating a multiset is a multiset --- the context of the hole remains a multiset.
+
+
 \chapter{Formalisation in Agda}
+\section{Definition}
 The implementation of multiset containers used in this project is slightly different from the definition used in \textbf{Chapter 9}. The definition is as follows:\\
 \\
 \-\hspace{3cm}\texttt{data Sym (n : Nat)}\\
 \-\hspace{4cm}\texttt{* : Sym n}\\
+\\
 \-\hspace{4cm}\texttt{p : (Fin n} $\simeq$ \texttt{Fin n)} $\to$ \texttt{* = *}\\
 \-\hspace{4cm}\texttt{tr : (f\textsubscript{1} , f\textsubscript{2} : Fin n} $\simeq$ \texttt{Fin n)}\\
 \-\hspace{5.3cm}$\to$ \texttt{p (f\textsubscript{1}} $\circ$ \texttt{f\textsubscript{2}) = (p f\textsubscript{1})}$\circ$\texttt{(p f\textsubscript{2})}\\
+\\
 \-\hspace{4cm}\texttt{h : is-1-type(Sym n)}\\
 \\
 \-\hspace{4cm}\texttt{P n : Sym n} $\to$ \texttt{Type of 0-Types}\\
 \-\hspace{4cm}\texttt{P n (*) = Fin n}\\
 \-\hspace{4cm}\texttt{P n (p(f)) = univalence f}\\
 \\
-This implementation sees the definition of a type \texttt{Sym n} which corresponds to the symmetric (permutation) group on the n-element set and acts as the shape type of the construction. The full Agda code is of the form:\\
-\\
-\-\hspace{3cm}\texttt{module Sym (n : Nat)}\\
-\-\hspace{4cm}\texttt{* : Sym}\\
-\\
-\-\hspace{4cm}\texttt{postulate}\\
-\-\hspace{5cm}\texttt{p : (Fin n} $\simeq$ \texttt{Fin n)} $\to$ \texttt{* = *}\\
-\-\hspace{5cm}\texttt{tr : (f\textsubscript{1} , f\textsubscript{2} : Fin n} $\simeq$ \texttt{Fin n)}\\
-\-\hspace{6.3cm}$\to$ \texttt{p (f\textsubscript{1}} $\circ$ \texttt{f\textsubscript{2}) = (p f\textsubscript{1})}$\circ$\texttt{(p f\textsubscript{2})}\\
-\-\hspace{5cm}\texttt{h : is-1-type(Sym n)}\\
+This implementation sees the definition of a type \texttt{Sym n} which corresponds to the symmetric (permutation) group on the n-element set and acts as the shape type of the construction. The path constructors define paths from the \texttt{*} point constructor to itself and represent permutations. 
 \newpage
+\section{Example}
+Consider two multisets $x,y$ such that $x = \{A,B,B\}$ and $y = \{B,B,A\}$. Alternately, we may represent them in the form \{length, \texttt{*} : Sym, mapping function\}, as follows:
+\begin{center}
+$x = \begin{Bmatrix}
+   &  &  & 0 \mapsto A \\
+  3, & *,& f = & 1 \mapsto B \\
+    &   &  & 2 \mapsto B \\
+ \end{Bmatrix}$
+,
+$y = \begin{Bmatrix}
+   &  &  & 0 \mapsto B \\
+  3, & *,& g = & 1 \mapsto B \\
+    &   &  & 2 \mapsto A \\
+ \end{Bmatrix}$
+\end{center}
+
+For two multisets to be the same in the above representation, all elements of the 3-tuple must be equivalent. While 3 in $x$ is trivially the same as 3 in $y$ by reflexivity, $x$ and $y$ appear completely disparate. However, when we transport through the equivalence for $*$ they become the same and as $*$ in $x$ and $*$ in $y$ are equivalent, we can therefore establish that $x = y$.  
+
+
+
+
+
+\section{Code}
+The Agda code itself is of the form:\\
+\\
+\texttt{module Sym (n : Nat)}\\
+\-\hspace{1.5cm}\texttt{* : Sym}\\
+\\
+\-\hspace{1.5cm}\texttt{postulate}\\
+\-\hspace{3cm}\texttt{p : (Fin n} $\simeq$ \texttt{Fin n)} $\to$ \texttt{* = *}\\
+\-\hspace{3cm}\texttt{tr : (f\textsubscript{1} , f\textsubscript{2} : Fin n} $\simeq$ \texttt{Fin n)}\\
+\-\hspace{4.16cm}$\to$ \texttt{p (f\textsubscript{1}} $\circ$ \texttt{f\textsubscript{2}) = (p f\textsubscript{1})}$\circ$\texttt{(p f\textsubscript{2})}\\
+\-\hspace{3cm}\texttt{h : is-1-type(Sym n)}\\
+\\
 \-\hspace{1.5cm}\texttt{module Sym-Recursor (n : Nat) \{i\} (A : Type i)}\\
 \-\hspace{3cm}\texttt{(base : A)(loops :(Fin n} $\simeq$ \texttt{Fin n)} $\to$ \texttt{(base = base))}\\
 \-\hspace{3cm}\texttt{(comp-loops : (f\textsubscript{1} f\textsubscript{2} : Fin n} $\simeq$ \texttt{Fin n)} $\to$\\
 \-\hspace{4.16cm} \texttt{loops (f\textsubscript{2}} $\circ$  \texttt{f\textsubscript{1}) == (loops f\textsubscript{1})}$\circ$\texttt{(loops f\textsubscript{2}))}\\
 \-\hspace{3cm}\texttt{(h : has-level (S (0)) A)}\\
 \\
-\-\hspace{2cm}\texttt{module Pos (n : Nat) where}\\
+\-\hspace{1.5cm}\texttt{module Pos (n : Nat) where}\\
 \-\hspace{3.2cm}\texttt{paths : Fin n} $\simeq$  \texttt{Fin n } $\to$\\
 \-\hspace{4.2cm}\texttt{(Fin n , fin-is-set n) == (Fin n , fin-is-set n)}\\
 \-\hspace{3.2cm}\texttt{p-trans : (f\textsubscript{1} f\textsubscript{2} : Fin n } $\simeq$ \texttt{ Fin n) } $\to$\\
@@ -701,19 +751,64 @@ Here, we do not define the eliminator as it is sufficient to define the recursor
 \\
 The full Agda code can be found in the Appendix (\textbf{14.2}).
 
+\chapter{Anti-derivatives of Quotient Containers}
+Another important quotient container is the cycle or ring. This chapter briefly covers cycles as quotient containers and discusses work done by Sattler\cite{cycle} on the anti-derivatives of cycles.
+\section{Anti-derivatives}
+
+\section{Cycles}
+A cycle is some permutation of a set such that mappings are performed in a cyclic manner. For example, $\{3,0,1,2\}$ is a cycle of the set $\{0,1,2,3\}$ as $0$ is mapped to $1$, $1$ is mapped to $2$, $2$ is mapped to $3$ and $3$ maps to $0$. In other words, it is a permutation of a set that has a single orbit containing more than one element.
+
+Thus, we may also view cycles as lists quotiented by rotations, such that in a rotation the $n^{th}$ element is mapped to the $n+1^{th}$ until the final element, which is mapped to the first.\\
+\\
+As we may view cycles as lists quotiented by rotations, it is possible to produce a quotient container, $(S_C \rhd P_C)$, that represents cycles. As with multisets, we define a higher inductive type:
+\begin{center}
+$S_C : \text{Type}_1$\\
+$e : \mathbb{N} \to S_C$\\
+$\epsilon : \text{Fin}(m) \to e(m) = e(m)$\\
+$\delta : \epsilon(0) = \text{refl}$
+\end{center}
+\newpage
+\noindent And a family:
+\begin{center}
+$P_C : S_C \to \text{Set}$\\
+$P_C(e(n)) = \text{Fin}(n)$\\
+$P_C(\epsilon(i)) = \lambda j.i+ \text{mod}(n)$
+\end{center}
+Interpretation:
+\begin{center}
+$\llbracket(S_C \rhd P_C)\rrbracket (X) = $ set of all cycles over $X$
+\end{center}
+
+
+\section{Galois Fields}
+
+\section{Anti-derivatives of Cyclic Actions}
+
+
+
+
+
+
+
+
 
 
 \part{Conclusions}
 \chapter{Evaluation}
 \section{Project Evaluation}
-The primary aim of this project was to produce an Agda implementation of multiset containers in Homotopy type theory. Secondarily to this was to explore and understand the fields of Containers and Homotopy type theory. With these in mind, it is my belief that this project has been successful. This said, there are a number of ways in which it could have been improved. Primarily, given additional time, I would wish to formalise the differentiation of multisets in Agda, a goal that initially planned to achieve before realising the hitherto unappreciated complexities of Agda and my quotient container implementation. Otherwise, I believe I have completed the project successfully. Secondly, there is also scope for performing additional research in other areas related to Homotopy type theory. For example, out of personal interest, I would like to look into and document topos theoretic interpretations of homotopy type theory. However, with a branch of mathematics with such far reaching implications in diverse subjects like Homotopy type theory, there will always be room for more research.
+The primary aim of this project was to produce an Agda implementation of multiset containers in Homotopy type theory. Secondarily to this was to explore and understand the fields of Containers and Homotopy type theory.
+
+
+
+
+ With these in mind, it is my belief that this project has been successful. This said, there are a number of ways in which it could have been improved. Primarily, given additional time, I would wish to formalise the differentiation of multisets in Agda, a goal that initially planned to achieve before realising the hitherto unappreciated complexities of Agda and my quotient container implementation. Otherwise, I believe I have completed the project successfully. Secondly, there is also scope for performing additional research in other areas related to Homotopy type theory. For example, out of personal interest, I would like to look into and document topos theoretic interpretations of homotopy type theory. However, with a branch of mathematics with such far reaching implications in diverse subjects like Homotopy type theory, there will always be room for more research.
 
 \section{Personal Reflection}
 I have learned a great deal during the undertaking of this project --- compounding existing knowledge of type theory and category theory while performing research in a fascinating and still blossoming area of mathematics and theoretical computer science. I have found this research very engaging and have developed a genuine interest for the subject.\\
 \\
 As touched on in the evaluation, I perhaps underestimated the time it would take to write my implementation. Despite being familiar with both type theory and functional programming, I found using Agda rather challenging initially. Completing this project has significantly improved my Agda skills. Not only this, but I have improved on invaluable skills such as time management, technical writing and task planning.\\
 \\
-Overall, I have found this project interesting and rewarding and I believe I have completed it succesfully.
+Overall, I have found this project interesting and rewarding and I believe I have completed it successfully.
 
 \chapter{Further Work}
 Naturally, the first instance of further work that could be completed is formalising the differentiation of a multiset in Agda. \\
@@ -780,10 +875,15 @@ In addition to these, there are a great deal of open problems in Homotopy type t
   \emph{Higher Order Containers}
   2010.
   
+\bibitem{cycle}
+  Christian Sattler,
+  \emph{Quotient Container Antiderivatives of Cyclic Actions},
+  2012.
+  
 \bibitem{lyon}
   Thorsten Altenkirch,
-  \emph{Containers in Homotopy Type Theory},
-  http://www.cs.nott.ac.uk/~txa/talks/lyon14.pdf
+  \emph{Containers in Homotopy Type Theory Talk},
+  2013.
   
 \bibitem{hott4}
   http://homotopytypetheory.org/
