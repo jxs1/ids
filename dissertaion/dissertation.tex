@@ -96,7 +96,8 @@ Date \line(1,0){40}/\line(1,0){40}/\line(1,0){40}\\
 \noindent \textbf{Abstract}\\
 
 \normalsize
-This paper serves to introduce and explain the notions of Martin L\"of Type Theory, Homotopy Type Theory, Containers and Differentiation of Data structures. Using ideas from each of these fields, Quotient Containers are introduced - specifically a multiset container and implmented in \textit{Agda}. The veracity of the implementation is then tested through differentiating a multiset container and concluding that the implementation behaves as one would expect and is true to theory.
+This paper serves to introduce and explain the notions of Martin L\"of type theory, Homotopy type theory, Containers and Differentiation of Data structures. Using ideas from each of these fields, quotient Containers are introduced - specifically multiset Containers and cycle Containers. Differentiation and anti-differentiation of these quotient Containers are consequently explored and an Agda implementation of multisets is also presented, making use of Homotopy type theory's powerful higher inductive types.
+
 
 \Huge
 
@@ -104,7 +105,7 @@ This paper serves to introduce and explain the notions of Martin L\"of Type Theo
 
 \normalsize
 
-This study would not have been made possible without the following:\\
+This study would not have been made possible without the following people:\\
 \\
 Prof. Thorsten Altenkirch for his support and help as my dissertation supervisor.\\
 \\
@@ -134,7 +135,7 @@ The undertaking of this project not only allows me to work within well establish
 \\
 A successful project will also have applications in a number of ways. A sound implementation of multisets in Agda could potentially be appended to the Agda Homotopy type theory library, providing a resource for further research. In addition, it adds more documentation to a young branch of mathematics and has potential implications in other fields such as datatype-generic programming.\\
 \\
-Further background is given in the relevant sections in \textbf{Part II}.
+Further background is given in the relevant sections of \textbf{Part II}.
 
 
 \section{Description of Work}
@@ -149,18 +150,21 @@ The initial aims and objectives that were outlined in my project proposal were a
 \item To potentially explore interesting or novel theorems surrounding Quotient Containers in Homotopy Type Theory
 \end{itemize}
 
-While these aims remain largely valid, as the project has progressed my aims have become more focussed and less diffuse. Keeping the above strongly in mind, the primary aim of this project is to produce an Agda implementation of a multiset container in homotopy type theory. Secondarily, this  written work serves to evidence the research and understanding necessary to produce such an implementation while acting as a suitable introduction to key concepts in the subject area.\\
+While these aims remain largely valid, as the project has progressed my aims have become more focussed and less diffuse. Keeping the above strongly in mind, the primary aim of this project is to produce an Agda implementation of a multiset container in homotopy type theory. Secondarily, this written work should serve to evidence the research and understanding necessary to produce such an implementation while acting as a suitable introduction to key concepts in the subject area.\\
 \\
 Given the abstract and theory oriented nature of the project it is difficult to give concrete aims and objectives to the code produced other than that it should be well written and fit for purpose. The code should also be written with an eye on ease of maintainability and extensibility. 
 
+\newpage
 \subsection*{Work Accomplished}
 While a full implementation of multiset Containers in Homotopy Type theory would have been ideal, over the course of the project it became apparent that this would be very much beyond the scope of an undergraduate dissertation.\\
 \\
-However, this document presents a large step in fully implementing multiset Containers in HoTT, leaving only a few holes in need of completion. These holes require detailed knowledge and deeper understanding of the nuances of Agda and the HoTT Agda library that was simply infeasible to garner within the time constraints. The structure of and main idea behind the higher inductive type is present and a reasonable proportion of the proof is complete, but the remainder is left to be implemented.
+However, this project presents a large step in fully implementing multiset Containers in Homotopy type theory, leaving only a few holes in need of completion. These holes require detailed knowledge and deeper understanding of the nuances of Agda and the HoTT Agda library that was simply infeasible to garner within the time constraints. The structure of and main idea behind the higher inductive type is present and a reasonable proportion of the proof is complete, but the remainder is left to be implemented.\\
+\\
+In addition, this document offers insight into some of the research undertaken including research into Containers, Martin L\"of Type theory, Homotopy Type theory and differentiation of data structures including cycles and multisets.
 
 
 \section{Structure of Report}
-This section serves to introduce the layout and organisation of the rest of the document. The understanding of my project requires a background knowledge in a number of different areas. \textbf{Part II} (Chapter 2 through 6) aims to cover those key areas and provide the reader with enough information for the subsequent part. \textbf{Part II} also presents an exposition and summary of some of the research performed during the project. \textbf{Part III} is an overview of my implementation and discusses the novelties and usage of quotient containers in homotopy type theory. The document concludes with \textbf{Part IV} which summarises the achievements of the project and gives a critical appraisal and personal reflection of the work. Finally, Chapter 10 discusses further work that could be performed in the area. 
+This section serves to introduce the layout and organisation of the rest of the document. The understanding of this project requires a background knowledge in a number of different areas. \textbf{Part II} (Chapters 2 through 6) aims to cover those key areas and provide the reader with enough information for the subsequent part. \textbf{Part II} also presents an exposition and summary of some of the research performed during the project. \textbf{Part III} is an overview of my implementation and an examination of the novelties and usage of quotient containers in homotopy type theory. \textbf{Part III} also discusses the derivatives and anti-derivatives of quotient containers including an insight into Sattler's work. The document concludes with \textbf{Part IV} which summarises the achievements of the project and gives a critical appraisal and personal reflection of the work. Finally, there is a brief overview of further work that could be performed in the area. 
 
 
 
@@ -310,10 +314,10 @@ Inductive types are also available in Agda, such as this familiar definition of 
                        zero : nat
                        succ : (n : nat) -> nat
 \end{verbatim}
-Inductive types are touched upon later when discussing higher inductive types (\textbf{4.2.5}).
+Inductive types are touched upon later when discussing Homotopy type theory's higher inductive types (\textbf{4.2}).
 
 \section{Functions}
-Simple functions are defined in a very similar manner to Haskell. Here we define the \textit{if then else} construct and the \textit{map} function: 
+Simple functions are defined in a very similar manner to Haskell. Here we define familiar functions --- the \textit{if then else} construct and the \textit{map} function: 
 \begin{verbatim}
             if_then_else_ : {A : Set} -> Bool -> A -> A -> A
             if true then x else y = x  
@@ -445,8 +449,8 @@ For some arbitrary container parameterised over a type X, P(x) maps a shape to a
 \section{Definition}
 A unary container is defined as a pair $ (S \rhd P) $ where:
 \begin{enumerate}
-\item $S : Set$ and elements of $S$ are the \textit{shapes} of the container.
-\item $P : Set \to Set$ and for $s : S$, elements of $P(s)$ are the \textit{positions} of \textit{s}.
+\item $S : \text{Set}$ and elements of $S$ are the \textit{shapes} of the container.
+\item $P : \text{Set} \to \text{Set}$ and for $s : S$, elements of $P(s)$ are the \textit{positions} of \textit{s}.
 \end{enumerate}
 
 \subsection*{List Container}
@@ -460,7 +464,7 @@ or in Agda:
                       Nil : List A
                       Cons : A -> List A -> List A
 \end{verbatim}
- $Con_{List} = (S \rhd P) $ such that \textit{S}, the set of shapes, is $\mathbb{N}$, the set of natural numbers and \textit{P}, the family of positions is $Fin(-)$. The functor $\llbracket Con_{List} \rrbracket$ is interpreted as a map from a set to the set of finite sequences in A.
+ $\text{Con}_{List} = (S \rhd P) $ such that \textit{S}, the set of shapes, is $\mathbb{N}$, the set of natural numbers and \textit{P}, the family of positions is $\text{Fin}(-)$. The functor $\llbracket \text{Con}_{List} \rrbracket$ is interpreted as a map from a set to the set of finite sequences in A.
 
 \section{Operations on Containers}
 \subsection*{Product Containers}
@@ -500,13 +504,13 @@ $\llbracket (S \rhd P) + (T \rhd Q) \rrbracket (A)= \llbracket(S \rhd P) \rrbrac
 The category of containers is composed of containers as objects and container morphisms.
 A container can be interpreted as an endofunctor (a categorical mapping from a category to itself):
 \begin{center}
-$\llbracket S \rhd P\rrbracket : Set \to Set$\\
+$\llbracket S \rhd P\rrbracket : \text{Set} \to \text{Set}$\\
 $ \llbracket S \rhd P\rrbracket X = \Sigma s : S. P s \to X $
 \end{center}
 and given containers $ (S \rhd P)$ and $ (T \rhd Q)$ morphism $ f \rhd r $ is given by:
 \linebreak
 \linebreak
-$Mor_{Con}(S \rhd P),(T \rhd Q) = $
+$\text{Mor}_{Con}(S \rhd P),(T \rhd Q) = $
 \begin{center}
 $ \sum_{f : S \to T} r : \prod_{x \in S} Q(f(x)) \to P(x)$
 \end{center}
@@ -516,8 +520,8 @@ Pictorally, this is represented as:
 \end{center}
 As an example of a container morphism we define \textit{reverse} for list containers:
 \begin{center}
-$reverse:\Pi_{A:Set} List(A) \to List(A)$\\
-$reverse = \lambda n.n \rhd \lambda n,i.n-1$
+$\text{reverse}:\Pi_{A:Set} \text{List}(A) \to \text{List}(A)$\\
+$\text{reverse} = \lambda n.n \rhd \lambda n,i.n-1$
 \end{center}
 
 \newpage
@@ -578,15 +582,15 @@ $\delta (S \rhd P) = (s,p) \Sigma s : S . P(s) \rhd \Sigma p':P(s),p \neq p'$.
 \subsection{Differentiation of a List Container}
 By way of example, we differentiate a list container. Given a list container \textit{L}:
 \begin{center}
-$L = (S \rhd P)$ such that $S = \mathbb{N}, P = Fin(-)$,
+$L = (S \rhd P)$ such that $S = \mathbb{N}, P = \text{Fin}(-)$,
 \end{center}
 As in \textbf{6.2}:
 \begin{center}
-$\delta(L) = \Sigma n : \mathbb{N}, p: Fin(n) \rhd \Sigma p' : Fin(n), p \neq p'$
+$\delta(L) = \Sigma n : \mathbb{N}, p: \text{Fin}(n) \rhd \Sigma p' : \text{Fin}(n), p \neq p'$
 \end{center} 
 This effectively splits the list, yielding
 \begin{center}
-$(m,n): \mathbb{N} \times \mathbb{N} \rhd Fin(n) + Fin(n)$,
+$(m,n): \mathbb{N} \times \mathbb{N} \rhd \text{Fin}(n) + \text{Fin}(n)$,
 \end{center}
 a pair of lists $(m,n)$ such that m \texttt{++} n would give the original list. As such, $\delta(L) = (L \times L)$, which is what we would expect from differentiating a list as in \textbf{6.1.1}.
 
@@ -597,13 +601,13 @@ a pair of lists $(m,n)$ such that m \texttt{++} n would give the original list. 
 \section{Definition}
 Quotient containers are containers furnished with an equivalence relation. More formally, a quotient container $(S \rhd P)/G$ is defined as a container $(S \rhd P)$ and for each shape $s$ in $S$, a set of isomorphisms $G(s)$. This set of isomorphisms can be seen as some subgroup of the automorphism group of $P(s)$.
 
- From this definition, it follows that all containers are degenerate form of quotient containers such that $G(s)$, the set of isomorphisms, is the empty set. 
+ From this definition, it follows that all containers are a degenerate form of quotient containers such that $G(s)$, the set of isomorphisms, is the empty set. 
 
 \section{Extension}
 The extension of a quotient container $(S \rhd P)/G$ is a functor:
 \begin{center}
-$T_{S \rhd P/G} : \text{Set} \rightarrow \text{Set}$\\
-$T_{S \rhd P/G}(x) = \Sigma s:S.(P(s) \rightarrow X)/\sim_{s}$, such that\\
+$\llbracket T_{(S \rhd P)/G}\rrbracket : \text{Set} \rightarrow \text{Set}$\\
+$\llbracket T_{(S \rhd P)/G}\rrbracket(x) = \Sigma s:S.(P(s) \rightarrow X)/\sim_{s}$, such that\\
 \end{center}
 $\sim_{s}$ is the equivalence relation on the set of functions $P(s) \rightarrow X$, such that
 \begin{center}
@@ -749,11 +753,24 @@ The Agda code itself is of the form:\\
 \\
 Here, we do not define the eliminator as it is sufficient to define the recursor.\\
 \\
-The full Agda code can be found in the Appendix (\textbf{14.2}).
+The full Agda code can be found in the Appendix, (\textbf{13.2}).
 
 \chapter{Anti-derivatives of Quotient Containers}
 Another important quotient container is the cycle or ring. This chapter briefly covers cycles as quotient containers and discusses work done by Sattler on the anti-derivatives of cycles.
 \section{Anti-derivatives}
+Anti-derivatives, as the name suggests, are the inverse of derivatives. Gylterud asked to what extent anti-derivatives exist for containers\cite{hott3}, noting that in the general case, such that we restrict the shapes of a container to be of type \textbf{Set}, anti-derivatives do not exist. However, he discovered that all analytic containers have anti-derivatives. That is, all containers such that
+\begin{center}
+$\llbracket (S \rhd P) \rrbracket = \llbracket \Sigma n : \mathbb{N}. T_{(S \rhd P)}(n) \rhd \text{Fin}(n) \rrbracket$
+\end{center}
+\noindent where
+\begin{center}
+$T_{(S \rhd P)} : \mathbb{N} \to \text{Set} $\\
+$T_{(S \rhd P)}(n) = \delta^{n}(S \rhd P)(0) / S_n$
+\end{center}
+\noindent such that $T_{(S \rhd P)}$ represents the Taylor series associated with $(S \rhd P)$, have anti-derivatives given by a higher inductive type with elements:
+\begin{center}
+$\Sigma n : \mathbb{N} T_{(S \rhd P)} (n) $
+\end{center} 
 
 \section{Cycles}
 A cycle is some permutation of a set such that mappings are performed in a cyclic manner. For example, $\{3,0,1,2\}$ is a cycle of the set $\{0,1,2,3\}$ as $0$ is mapped to $1$, $1$ is mapped to $2$, $2$ is mapped to $3$ and $3$ maps to $0$. In other words, it is a permutation of a set that has an orbit containing more than one element. The length of a cycle is determined by the number of elements in it's largest orbit and we call a cycle of length $k$ a $k$-cycle.
@@ -767,7 +784,7 @@ $e : \mathbb{N} \to S_C$\\
 $\epsilon : \text{Fin}(m) \to e(m) = e(m)$\\
 $\delta : \epsilon(0) = \text{refl}$
 \end{center}
-\newpage
+
 \noindent And a family:
 \begin{center}
 $P_C : S_C \to \text{Set}$\\
@@ -797,13 +814,11 @@ In 2012, Christian Sattler showed that the differential of a finite field of ord
 \begin{center}
 $\{x \mapsto ax | a : \mathbb{F}, a \neq 0\}$
 \end{center}
-Thus, as $x = \frac{\delta}{\delta x} \Leftrightarrow y = \int x$, this means that the anti-derivative of an $n$-cycle is a finite field of order $n+1$. As finite fields only exist when they are of a prime power order, in general anti-derivatives of cycles cannot exist. \\
+Thus, as $x = \frac{\delta}{\delta x} y \Leftrightarrow y = \int x$, this means that the anti-derivative of an $n$-cycle is a finite field of order $n+1$. As finite fields only exist when they are of a prime power order, in general anti-derivatives of cycles cannot exist. \\
 \\
 e.g. a $5$-cycle has no anti-derivative as an order 6 finite field cannot exist.
-
-
-
-
+\section{Anti-derivatives of Multisets}
+As we proved in \textbf{9.1.1} that the derivative of a multiset is a multiset and as $x = \frac{\delta}{\delta x} y \Leftrightarrow y = \int x$, trivially, this means that the anti-derivative of a multiset is a multiset. As such, it is a fixed point of the functional that is differentiation of data types.
 
 
 
@@ -813,26 +828,28 @@ e.g. a $5$-cycle has no anti-derivative as an order 6 finite field cannot exist.
 \part{Conclusions}
 \chapter{Evaluation}
 \section{Project Evaluation}
-The primary aim of this project was to produce an Agda implementation of multiset containers in Homotopy type theory. Secondarily to this was to explore and understand the fields of Containers and Homotopy type theory.
+The primary aim of this project was to produce an Agda implementation of multiset containers in Homotopy type theory. Secondary to this was to explore and understand the fields of Containers and Homotopy type theory.\\
+\\
+While it was not possible to produce full implementation of multisets due to the scope of the project and time constraints, I believe I have made substantial progress towards a complete implementation. Given additional time to program and become more familiar with Agda and the Homotopy type theory library, I believe it would be possible to finish the code. Finishing the multiset implementation could perhaps be left for another project, either undertaken by myself in the future or by another student.\\
+\\
+ This said, it is my belief that this project has been largely successful. As previously stated, I have come some way toward a multiset implementation while exploring the theory of containers, differentiation of data structures and Homotopy type theory --- documented in this work.\\
+\\
+To expand on this dissertation I would wish to perform additional research in other areas related to Homotopy type theory. For example, out of personal interest, I would like to look into and document topos theoretic interpretations of Homotopy type theory. However, with a branch of mathematics with such far reaching implications in diverse subjects like Homotopy type theory, there will always be room for more research.
 
-
-
-
- With these in mind, it is my belief that this project has been successful. This said, there are a number of ways in which it could have been improved. Primarily, given additional time, I would wish to formalise the differentiation of multisets in Agda, a goal that initially planned to achieve before realising the hitherto unappreciated complexities of Agda and my quotient container implementation. Otherwise, I believe I have completed the project successfully. Secondly, there is also scope for performing additional research in other areas related to Homotopy type theory. For example, out of personal interest, I would like to look into and document topos theoretic interpretations of homotopy type theory. However, with a branch of mathematics with such far reaching implications in diverse subjects like Homotopy type theory, there will always be room for more research.
-
+\newpage
 \section{Personal Reflection}
 I have learned a great deal during the undertaking of this project --- compounding existing knowledge of type theory and category theory while performing research in a fascinating and still blossoming area of mathematics and theoretical computer science. I have found this research very engaging and have developed a genuine interest for the subject.\\
 \\
-As touched on in the evaluation, I perhaps underestimated the time it would take to write my implementation. Despite being familiar with both type theory and functional programming, I found using Agda rather challenging initially. Completing this project has significantly improved my Agda skills. Not only this, but I have improved on invaluable skills such as time management, technical writing and task planning.\\
+Theory aside, I have also learned and improved upon invaluable skills such as time management, technical writing and task planning. Particularly so time management --- while I aimed to keep rigorously to the schedule I imposed upon myself in my project proposal, It may have been prudent to revise the timetable dynamically to allow additional time where required. For example, allowing more time to get to grips with the hitherto unappreciated nuances of Agda.\\
 \\
-Overall, I have found this project interesting and rewarding and I believe I have completed it successfully.
+Moving forward, I will take with me the experience of producing a large project while garnering and developing both technical and practical skills and making a first foray into a compelling research area.\\ 
+\\
+Overall, I have found this project both interesting to undertake and richly rewarding to complete and it is my belief that I have completed it successfully.
 
-\chapter{Further Work}
-Naturally, the first instance of further work that could be completed is formalising the differentiation of a multiset in Agda. \\
+\section{Further Work}
+Naturally, the first instance of further work that could be performed is in completing the Agda implementation of multisets that was initiated in this project. Secondary to this, would be proving that the derivative and anti-derivative of a multiset is a multiset in Agda. It may also be worthwhile formalising cycles in the same manner \\
 \\
-In the field of differentiating containers, Gylterud asked whether anti-derivatives of containers exist, observing that when relying on the Shapes of a container to be a set, in general, there are no anti-derivatives. With this in mind, it may be of interest to explore the anti-derivatives of quotient containers.\\
-\\
-In addition to these, there are a great deal of open problems in Homotopy type theory such as formalising  $\infty$-Groupoids in HoTT or constructing HIRTs --- higher inductive-recursive types. 
+In addition to these, there are a great deal of open problems in Homotopy type theory to be solved, such as formalising  $\infty$-Groupoids in HoTT or constructing HIRTs --- higher inductive-recursive types. 
 
 
 \cleardoublepage
@@ -945,6 +962,8 @@ record NatTrans (F , G : Functor) : Sets
 
 \end{verbatim}
 \section{Agda Multiset Container}
-
+\includegraphics[scale=0.7]{code1.png}
+\newpage
+\includegraphics[scale=0.7]{code2.png}
 
 \end{document}
