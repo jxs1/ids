@@ -752,11 +752,11 @@ Here, we do not define the eliminator as it is sufficient to define the recursor
 The full Agda code can be found in the Appendix (\textbf{14.2}).
 
 \chapter{Anti-derivatives of Quotient Containers}
-Another important quotient container is the cycle or ring. This chapter briefly covers cycles as quotient containers and discusses work done by Sattler\cite{cycle} on the anti-derivatives of cycles.
+Another important quotient container is the cycle or ring. This chapter briefly covers cycles as quotient containers and discusses work done by Sattler on the anti-derivatives of cycles.
 \section{Anti-derivatives}
 
 \section{Cycles}
-A cycle is some permutation of a set such that mappings are performed in a cyclic manner. For example, $\{3,0,1,2\}$ is a cycle of the set $\{0,1,2,3\}$ as $0$ is mapped to $1$, $1$ is mapped to $2$, $2$ is mapped to $3$ and $3$ maps to $0$. In other words, it is a permutation of a set that has a single orbit containing more than one element.
+A cycle is some permutation of a set such that mappings are performed in a cyclic manner. For example, $\{3,0,1,2\}$ is a cycle of the set $\{0,1,2,3\}$ as $0$ is mapped to $1$, $1$ is mapped to $2$, $2$ is mapped to $3$ and $3$ maps to $0$. In other words, it is a permutation of a set that has an orbit containing more than one element. The length of a cycle is determined by the number of elements in it's largest orbit and we call a cycle of length $k$ a $k$-cycle.
 
 Thus, we may also view cycles as lists quotiented by rotations, such that in a rotation the $n^{th}$ element is mapped to the $n+1^{th}$ until the final element, which is mapped to the first.\\
 \\
@@ -780,9 +780,26 @@ $\llbracket(S_C \rhd P_C)\rrbracket (X) = $ set of all cycles over $X$
 \end{center}
 
 
-\section{Galois Fields}
+\section{Finite Fields}
+A finite field or Galois field, $\mathbb{F}_p n$, is a field that obeys canonical field axioms and in addition has the following properties:
+\begin{enumerate}
+\item Has a prime power number of elements. The number of elements is known as the \textit{order} of the field and the prime base is known as the \textit{characteristic} of the field.
+\item For all primes, $p$ and positive $n$, $\mathbb{F}_p n$ exists.
+\item Finite fields of the same \textit{order} are isomorphic.
+\item Finite fields cannot exist with a non-prime \textit{characteristic}.
+\end{enumerate}
+
+\subsection*{Example}
+A classical example is the integers, $\mathbb{Z}$ modulo a prime number. e.g. $\mathbb{Z}/2\mathbb{Z}$ has characteristic $2$ as $1 + 1 = 0$. Conversely, $\mathbb{Z}/6\mathbb{Z}$ is not, as $6$ is not prime.
 
 \section{Anti-derivatives of Cyclic Actions}
+In 2012, Christian Sattler showed that the differential of a finite field of order $n$ is a cycle\cite{cycle}. Strictly, the cyclic group of bijective affine transformations on the field that fix zero:
+\begin{center}
+$\{x \mapsto ax | a : \mathbb{F}, a \neq 0\}$
+\end{center}
+Thus, as $x = \frac{\delta}{\delta x} \Leftrightarrow y = \int x$, this means that the anti-derivative of an $n$-cycle is a finite field of order $n+1$. As finite fields only exist when they are of a prime power order, in general anti-derivatives of cycles cannot exist. \\
+\\
+e.g. a $5$-cycle has no anti-derivative as an order 6 finite field cannot exist.
 
 
 
